@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 mongoose.connect(
-  "mongodb+srv://ankitsikarwar681:NEoz7PGQ9VBiNvhQ@products.j2edltx.mongodb.net/ShopItems"
+  `mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`
 );
 
 const item = require("./Models/ProductModels");
