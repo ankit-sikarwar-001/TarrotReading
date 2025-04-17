@@ -1,28 +1,39 @@
 const express = require("express");
 require("dotenv").config();
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const cors = require("cors");
+const Product = require("./Models/ProductModels");
+
 const app = express();
 const PORT = process.env.PORT;
 
-mongoose.connect(
-  `mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`
-);
+app.use(cors()); // Allow frontend to connect
+app.use(express.json()); // Parse JSON
 
-const item = require("./Models/ProductModels");
-// Middleware to parse JSON
-// app.use(express.json());
+mongoose.connect(`mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`);
 
+// POST API to receive form data
+app.post("/api/products", async (req, res) => {
+  try {
+    const product = new Product(req.body);
+    await product.save();
+    res.status(201).json({ message: "Product saved successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to save product" });
+  }
+});
 
+// get api
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await Product.find(); // Fetch all products from the database
+    res.status(200).json(products); // Send the products as a JSON response
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch products" }); // Handle errors
+  }
+});
 
-// Sample API endpoint
-// app.get("/products", (req, res) => {
-//   res.json([
-//     { id: 1, name: "Mystic Tarot Deck", price: 45.99 },
-//     { id: 2, name: "Crystal Healing Set", price: 39.99 },
-//   ]);
-// });
-
-// Start server
+// Server Start
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`);
 });

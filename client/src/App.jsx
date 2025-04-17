@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Shop from './pages/Shop'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
+import Admin from './pages/Admin'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -16,7 +17,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/shop' element={<Shop />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Admin />} />
 
       </Routes>
 
