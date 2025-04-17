@@ -5,6 +5,8 @@ import Navbar from './components/Navbar'
 import Shop from './pages/Shop'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
+import Footer from './components/Footer'
+import CheckoutPage from './pages/CheckOut'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
