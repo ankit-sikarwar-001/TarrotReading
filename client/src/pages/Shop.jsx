@@ -1,6 +1,5 @@
 import React from 'react';
 import Cards from '../components/Cards';
-import Footer from '../components/Footer';
 
 const Shop = () => {
   return (
@@ -60,7 +59,7 @@ const Shop = () => {
         </div>
       </div>
       <Cards/>
-      <Footer/>
+     
     </div>
   );
 };
