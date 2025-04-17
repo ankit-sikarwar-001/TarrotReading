@@ -5,10 +5,10 @@ const app = express();
 const PORT = process.env.PORT;
 
 mongoose.connect(
-  "mongodb+srv://ankitsikarwar681:NEoz7PGQ9VBiNvhQ@products.j2edltx.mongodb.net/"
+  "mongodb+srv://ankitsikarwar681:NEoz7PGQ9VBiNvhQ@products.j2edltx.mongodb.net/ShopItems"
 );
 
-const item = require("./Models/ProductModels")
+const item = require("./Models/ProductModels");
 // Middleware to parse JSON
 // app.use(express.json());
 
