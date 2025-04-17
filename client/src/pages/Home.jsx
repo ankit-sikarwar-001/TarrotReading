@@ -21,7 +21,8 @@ const Home = () => {
 
 
       <div className='text-white text-center flex flex-col '>
-        <h1 className='font-bold text-4xl mb-7 '>Interactive Tarrot Reading</h1>
+
+      <h1 className='font-bold text-4xl mb-7 '> <span className="text-[#D4AF37]">✧</span> Interactive Tarrot Reading  <span className="text-[#D4AF37]">✧</span></h1>
         <p> Focus on your question and select three cards for your present past and future </p>
         <div>
           <button className='bg-purple-400 px-7 py-2 mt-3 rounded-xl cursor-pointer'> Shuffle Cards</button>
@@ -56,7 +57,7 @@ const Home = () => {
 
       {/* shooping cards */}
       <div className='text-white gap-20  mt-40 flex flex-col justify-center items-center  w-full'>
-        <h1 className='text-4xl font-bold'>Featured Spiritual Items</h1>
+        <h1 className='text-4xl font-bold'> <span className="text-[#D4AF37]">✧</span> Featured Spiritual Items <span className="text-[#D4AF37]">✧</span></h1>
         <div className='flex flex-col sm:flex-row flex-wrap gap-5 justify-center items-center'>
   <ProductCart />
   <ProductCart />
@@ -73,7 +74,7 @@ const Home = () => {
 
     {/* testimonials */}
 <div className='text-white mt-40 px-4'>
-  <h1 className='text-4xl font-bold mb-16 text-center'>Customer Testimonials</h1>
+  <h1 className='text-4xl font-bold mb-16 text-center'> <span className="text-[#D4AF37]">✧</span> Customer Testimonials  <span className="text-[#D4AF37]">✧</span></h1>
 
   <div className='flex flex-col lg:flex-row gap-10 md:gap-10 justify-center items-center'>
     <Testimonialscard />
@@ -85,8 +86,6 @@ const Home = () => {
 
 
 
-      {/* footer */}
-      <Footer />
     </div>
   )
 }
