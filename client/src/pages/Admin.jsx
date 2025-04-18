@@ -99,28 +99,32 @@ const Admin = () => {
       </div>
 
       {/* Top Bar */}
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center gap-4">
+      {/* Top Bar */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
+        {/* Left Section: Search + Filter */}
+        <div className="flex flex-col sm:flex-row items-stretch gap-2 sm:gap-4 w-full sm:w-auto">
           <input
             type="text"
             placeholder="Search products..."
-            className="px-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400"
+            className="px-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400 w-full sm:w-64"
           />
-          <select className="px-4 py-2 rounded-md bg-gray-800 text-white">
+          <select className="px-4 py-2 rounded-md bg-gray-800 text-white w-full sm:w-48">
             <option>All Categories</option>
             <option>Tarot Decks</option>
             <option>Crystals</option>
             <option>Books</option>
           </select>
         </div>
+
+        {/* Right Section: Add Button */}
         <button
           onClick={handleAddProduct}
-          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-md"
+          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-md w-full sm:w-auto"
         >
           Add Product
         </button>
-
       </div>
+
 
       {/* Product Form */}
       {showForm && (
@@ -131,8 +135,8 @@ const Admin = () => {
       )}
 
       {/* Table */}
-      <div className="bg-[#1c1c1e] rounded-lg overflow-hidden mt-4">
-        <table className="w-full text-left">
+      <div className="bg-[#1c1c1e] rounded-lg overflow-x-auto mt-4">
+        <table className="min-w-full text-left">
           <thead className="bg-[#332946] text-gray-300 text-sm uppercase">
             <tr>
               <th className="p-4">Product</th>
@@ -146,24 +150,24 @@ const Admin = () => {
           <tbody>
             {products.map((product) => (
               <tr key={product._id} className="border-b border-gray-700 hover:bg-gray-900 transition">
-                <td className="p-4 flex items-center gap-3">
+                <td className="p-4 flex items-center gap-3 min-w-[200px]">
                   <img src={product.image || 'https://via.placeholder.com/40'} alt={product.name} className="w-10 h-10 rounded" />
                   <div>
                     <p>{product.name}</p>
                     <span className="text-gray-500 text-xs">SKU: {product.title || 'N/A'}</span>
                   </div>
                 </td>
-                <td>{product.description}</td>
-                <td className="text-yellow-400">${parseFloat(product.price).toFixed(2)}</td>
-                <td>{product.stocks}</td>
-                <td>
+                <td className="min-w-[150px]">{product.description}</td>
+                <td className="text-yellow-400 min-w-[100px]">${parseFloat(product.price).toFixed(2)}</td>
+                <td className="min-w-[80px]">{product.stocks}</td>
+                <td className="min-w-[100px]">
                   {product.stocks <= 5 ? (
                     <span className="bg-yellow-700 text-xs px-2 py-1 rounded-full">Low Stock</span>
                   ) : (
                     <span className="bg-green-700 text-xs px-2 py-1 rounded-full">Active</span>
                   )}
                 </td>
-                <td className="text-right pr-6">
+                <td className="text-right pr-6 min-w-[120px]">
                   <button
                     className="text-yellow-400 mr-4"
                     onClick={() => {
@@ -180,12 +184,12 @@ const Admin = () => {
                     🗑️
                   </button>
                 </td>
-
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
     </div>
   )
 }

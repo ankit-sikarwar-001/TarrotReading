@@ -47,7 +47,7 @@ const Navbar = ({ menuOpen, setMenuOpen}) => {
               }}>Home</NavLink>
               <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/shop" onClick={() => setMenuOpen(false)}>Shop</NavLink>
               <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/cart" onClick={() => setMenuOpen(false)}>🛒Cart</NavLink>
-              <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/login" onClick={() => setMenuOpen(false)}>Admin</NavLink>
+              <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/admin" onClick={() => setMenuOpen(false)}>Admin</NavLink>
             </div>
           )}
         </div>
