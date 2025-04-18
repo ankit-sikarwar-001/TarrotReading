@@ -47,6 +47,20 @@ app.delete("/api/products/:id", async (req, res) => {
   }
 });
 
+// UPDATE product by ID
+app.put("/api/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
 // Server Start
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`);

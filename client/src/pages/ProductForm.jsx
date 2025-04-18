@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
-const ProductForm = ({ onProductAdded }) => {
+const ProductForm = ({ onProductAdded, editingProduct }) => {
+    const isEditing = !!editingProduct;
+
     const [formData, setFormData] = useState({
-        title: "",
-        description: "",
-        price: "",
-        rating: "",
-        reviews: "",
-        tags: "",
-        image: ""
+        name: editingProduct?.name || '',
+        title: editingProduct?.title || '',
+        description: editingProduct?.description || '',
+        price: editingProduct?.price || '',
+        image: editingProduct?.image || '',
+        stocks: editingProduct?.stocks || '',
     });
 
     const handleChange = (e) => {
@@ -24,41 +25,39 @@ const ProductForm = ({ onProductAdded }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const payload = {
-            ...formData,
-            price: parseFloat(formData.price),
-            rating: parseFloat(formData.rating),
-            reviews: parseInt(formData.reviews),
-            tags: formData.tags.split(",").map(tag => tag.trim())
-        };
+        const url = isEditing
+            ? `http://localhost:3001/api/products/${editingProduct._id}`
+            : 'http://localhost:3001/api/products';
+        const method = isEditing ? 'PUT' : 'POST';
+
         try {
-            const res = await fetch("http://localhost:3001/api/products", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
+            const res = await fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
             });
-            const data = await res.json();
-            console.log(data);
-            alert(data.message || "Product submitted!");
 
-            setFormData({ title: "", description: "", price: "", rating: "", reviews: "", tags: "", image: "" });
-            
-
-            if (onProductAdded) onProductAdded(); // Inform Admin.jsx to refresh product list
+            if (res.ok) {
+                onProductAdded(); // refresh and close
+            } else {
+                console.error(`${isEditing ? 'Update' : 'Add'} failed`);
+            }
         } catch (err) {
-            console.error("Error submitting product:", err);
+            console.error(`${isEditing ? 'Update' : 'Add'} error:`, err);
         }
         handleAddProduct();
     };
 
     return (
         <div className="p-4">
+            {!editingProduct&&(
             <button
                 onClick={handleAddProduct}
                 className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-md"
             >
                 Close Product
             </button>
+            )}
 
             
                 <form className="mt-4 space-y-4 bg-[#1f1f1f] p-6 rounded-lg" onSubmit={handleSubmit}>

@@ -26,7 +26,7 @@ const Navbar = ({ menuOpen, setMenuOpen}) => {
           <NavLink className="hover:text-yellow-500" to="/">Home</NavLink>
           <NavLink className="hover:text-yellow-500" to="/shop">Shop</NavLink>
           <NavLink className="hover:text-yellow-500" to="/cart">🛒 Cart</NavLink>
-          <NavLink className="hover:text-yellow-500" to="/login">Admin</NavLink>
+          <NavLink className="hover:text-yellow-500" to="/admin">Admin</NavLink>
         </div>
 
         {/* mobile menu icon and menu */}
