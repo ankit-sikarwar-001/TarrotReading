@@ -8,6 +8,8 @@ import Login from './pages/Login'
 import Admin from './pages/Admin'
 import Footer from './components/Footer'
 import CheckoutPage from './pages/CheckOut'
+import Admin from './pages/Admin'
+import ProductForm from './pages/ProductForm'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -22,6 +24,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/admin' element={<Admin />} />
         <Route path='/checkout' element={<CheckoutPage />} />
+        <Route path="/add-product" element={<ProductForm />} />
 
       </Routes>
 

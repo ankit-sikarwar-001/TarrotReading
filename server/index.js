@@ -33,6 +33,34 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
+// DELETE product by ID
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+// UPDATE product by ID
+app.put("/api/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
 // Server Start
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`);
