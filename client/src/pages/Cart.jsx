@@ -5,23 +5,26 @@ import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
   const navigate = useNavigate()
-  const { cartItems, items } = useContext(AppContext)
+  const { allitems, setAllItems, totalCartItems, setTotalCartItems} = useContext(AppContext)
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
-    const total = cartItems.reduce((sum, product) => {
-      const item = items.find(i => i.id === product.id)
+    const total = totalCartItems.reduce((sum, product) => {
+      const item = allitems.find(i => i.id === product.id)
       return sum + (item?.price || 0) * (product?.quantity || 1)
     }, 0)
     setTotalPrice(total)
-  }, [cartItems, items])
+  }, [totalCartItems, allitems])
+
+
+  console.log('totalprice', totalPrice);
 
   const subtotal = totalPrice
   const tax = subtotal * 0.05
   const shipping = subtotal > 0 ? 50 : 0
   const total = subtotal + tax + shipping
 
-  if (cartItems.length === 0) {
+  if (totalCartItems.length === 0) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center  text-white px-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Your Cart is Empty 🛒</h1>
@@ -53,8 +56,8 @@ const Cart = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
-          {cartItems.map((item, index) => (
-            <CartItem key={index} productId={item.id} quantity={item.quantity} />
+          {totalCartItems.map((item, index) => (
+            <CartItem key={index} productId={item._id} quantity={item.quantity} />
           ))}
         </div>
 

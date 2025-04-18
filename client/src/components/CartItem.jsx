@@ -2,28 +2,35 @@ import React, { useContext } from 'react'
 import { AppContext } from '../appContext/AppContext'
 
 const CartItem = ({ productId, quantity }) => {
-  const { cartItems, setCartItems  } = useContext(AppContext)
+  const { totalCartItems, setTotalCartItems  } = useContext(AppContext)
 
-  const cartItem = cartItems.find(item => item.id === productId)
+  const cartItem = totalCartItems.find(item => item._id === productId)
   if (!cartItem) return null
 
   const handlePlus = () => {
-    const updated = cartItems.map(p =>
-      p.id === productId ? { ...p, quantity: p.quantity + 1 } : p
+    const updated = totalCartItems.map(p =>
+      ( p._id === productId ? { ...p, quantity: p.quantity + 1 } : p)
     )
-    setCartItems(updated)
+    console.log(updated);
+    setTotalCartItems(updated)
+    localStorage.setItem("tarotCartItems", JSON.stringify(updated));
+    
   }
 
+  console.log(cartItem);
+  
   const handleMinus = () => {
-    const updated = cartItems
+    const updated = totalCartItems
       .map(p => {
-        if (p.id === productId) {
+        if (p._id === productId) {
           return p.quantity > 1 ? { ...p, quantity: p.quantity - 1 } : null
         }
         return p
       })
       .filter(Boolean)
-      setCartItems(updated)
+      setTotalCartItems(updated)
+      localStorage.setItem("tarotCartItems", JSON.stringify(updated));
+
      }
 
   return (

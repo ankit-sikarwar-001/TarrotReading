@@ -1,7 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../appContext/AppContext';
 
 const CheckoutPage = () => {
+
+ const { allitems, setAllItems, totalCartItems, setTotalCartItems} = useContext(AppContext)
+  const [totalPrice, setTotalPrice] = useState(0)
+
+    useEffect(() => {
+      const total = totalCartItems.reduce((sum, product) => {
+        const item = allitems.find(i => i.id === product.id)
+        return sum + (item?.price || 0) * (product?.quantity || 1)
+      }, 0)
+      setTotalPrice(total)
+    }, [totalCartItems, allitems])
+  
+
     const navigate = useNavigate()
   const [shippingDetails, setShippingDetails] = useState({
     firstName: '',
@@ -181,7 +195,7 @@ const CheckoutPage = () => {
             </div>
             <div className="flex justify-between font-bold mb-6">
               <p>Total</p>
-              <p>$30.82</p>
+              <p>${totalPrice}</p>
             </div>
 
             <button className="w-full bg-blue-600 text-white py-3 rounded-md mb-6">

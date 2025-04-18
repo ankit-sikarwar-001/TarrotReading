@@ -23,10 +23,13 @@ const Navbar = ({ menuOpen, setMenuOpen}) => {
 
         {/* links for desktop */}
         <div className='md:flex hidden gap-10 text-xl font-medium'>
-          <NavLink className="hover:text-yellow-500" to="/">Home</NavLink>
+          <NavLink className="hover:text-yellow-500" onClick={() => {
+                navigate("/")
+                scrollTo(0, 0)
+              }} to="/" >Home</NavLink>
           <NavLink className="hover:text-yellow-500" to="/shop">Shop</NavLink>
           <NavLink className="hover:text-yellow-500" to="/cart">🛒 Cart</NavLink>
-          <NavLink className="hover:text-yellow-500" to="/login">Admin</NavLink>
+          <NavLink className="hover:text-yellow-500" to="/admin">Admin</NavLink>
         </div>
 
         {/* mobile menu icon and menu */}
@@ -47,7 +50,7 @@ const Navbar = ({ menuOpen, setMenuOpen}) => {
               }}>Home</NavLink>
               <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/shop" onClick={() => setMenuOpen(false)}>Shop</NavLink>
               <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/cart" onClick={() => setMenuOpen(false)}>🛒Cart</NavLink>
-              <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/login" onClick={() => setMenuOpen(false)}>Admin</NavLink>
+              <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/admin" onClick={() => setMenuOpen(false)}>Admin</NavLink>
             </div>
           )}
         </div>

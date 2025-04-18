@@ -27,7 +27,7 @@ const ProductForm = () => {
             reviews: parseInt(formData.reviews),
             tags: formData.tags.split(",").map(tag => tag.trim())
         };
-        const res = await fetch("http://localhost:3001/api/products", {
+        const res = await fetch("http://localhost:5000/api/products", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -39,19 +39,7 @@ const ProductForm = () => {
         setFormData({ title: "", description: "", price: "", rating: "", reviews: "", tags: "", image: "" });
     };
 
-    const getProducts = async () => {
-        try {
-            const response = await fetch("http://localhost:3001/api/products", {
-                method: "GET"
-            });
-            const data = await response.json(); // Await the JSON parsing
-            console.log(data); // Log the parsed data
-        } catch (error) {
-            console.error("Error fetching products:", error);
-        }
-    };
 
-    getProducts()
     return (
         <div className="p-4">
             <button

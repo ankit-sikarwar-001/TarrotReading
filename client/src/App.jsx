@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Shop from './pages/Shop'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
+import Admin from './pages/Admin'
 import Footer from './components/Footer'
 import CheckoutPage from './pages/CheckOut'
 
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/shop' element={<Shop />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/admin' element={<Admin />} />
         <Route path='/checkout' element={<CheckoutPage />} />
 
       </Routes>

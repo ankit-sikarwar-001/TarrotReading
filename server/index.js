@@ -5,7 +5,7 @@ const cors = require("cors");
 const Product = require("./Models/ProductModels");
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000; // Port for the server
 
 app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON

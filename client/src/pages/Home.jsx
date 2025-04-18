@@ -4,6 +4,7 @@ import ProductCart from '../components/ProductCart'
 import Testimonialscard from '../components/Testimonialscard'
 import Footer from '../components/Footer'
 import { useNavigate } from 'react-router-dom'
+import Cards from '../components/Cards'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -59,9 +60,7 @@ const Home = () => {
       <div className='text-white gap-20  mt-40 flex flex-col justify-center items-center  w-full'>
         <h1 className='text-4xl font-bold'> <span className="text-[#D4AF37]">✧</span> Featured Spiritual Items <span className="text-[#D4AF37]">✧</span></h1>
         <div className='flex flex-col sm:flex-row flex-wrap gap-5 justify-center items-center'>
-  <ProductCart />
-  <ProductCart />
-  <ProductCart />
+     <Cards />
 </div>
 
 
