@@ -20,7 +20,7 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
     const navigate = useNavigate();
 
     const handleAddProduct = () => {
-        navigate('/login');
+        navigate('/admin');
     };
 
     const handleSubmit = async (e) => {
