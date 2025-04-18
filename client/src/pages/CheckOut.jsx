@@ -4,6 +4,7 @@ import { AppContext } from '../appContext/AppContext';
 
 const CheckoutPage = () => {
 
+
  const { allitems, setAllItems, totalCartItems, setTotalCartItems} = useContext(AppContext)
   const [totalPrice, setTotalPrice] = useState(0)
 
@@ -26,6 +27,19 @@ const CheckoutPage = () => {
     state: '',
     postalCode: ''
   });
+
+
+  const placeOrder = (e) =>  {
+    e.preventDefault()
+    console.log(shippingDetails);
+    
+    alert("Order Placed Successfully")
+    // Here you can add logic to send the order details to your backend or payment gateway  
+    // For now, we'll just clear the cart and redirect to the home page
+    localStorage.removeItem("tarotCartItems") // Clear cart from local storage
+    setTotalCartItems([])
+    navigate("/")
+  }
 
   const [paymentMethod, setPaymentMethod] = useState('');
 
@@ -198,7 +212,8 @@ const CheckoutPage = () => {
               <p>${totalPrice}</p>
             </div>
 
-            <button className="w-full bg-blue-600 text-white py-3 rounded-md mb-6">
+            <button 
+           onClick={(e) => placeOrder(e)} className="w-full bg-blue-600 text-white py-3 rounded-md mb-6">
               Place Order
             </button>
             <p className="text-sm text-center">
