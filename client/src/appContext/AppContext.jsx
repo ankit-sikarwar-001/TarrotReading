@@ -25,7 +25,7 @@ export const AppContextProvider = ({ children }) => {
 
 const getProducts = async () => {
   try {
-      const response = await fetch("http://localhost:5000/api/products", {
+      const response = await fetch("http://localhost:3001/api/products", {
           method: "GET"
       });
       const data = await response.json(); // Await the JSON parsing

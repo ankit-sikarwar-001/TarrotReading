@@ -25,27 +25,6 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-<<<<<<< HEAD
-        const payload = {
-            ...formData,
-            price: parseFloat(formData.price),
-            rating: parseFloat(formData.rating),
-            reviews: parseInt(formData.reviews),
-            tags: formData.tags.split(",").map(tag => tag.trim())
-        };
-        const res = await fetch("http://localhost:5000/api/products", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        console.log(data);
-        alert(data.message || "Product submitted!");
-        setShowForm(false);
-        setFormData({ title: "", description: "", price: "", rating: "", reviews: "", tags: "", image: "" });
-    };
-
-=======
         const url = isEditing
             ? `http://localhost:3001/api/products/${editingProduct._id}`
             : 'http://localhost:3001/api/products';
@@ -68,7 +47,6 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
         }
         handleAddProduct();
     };
->>>>>>> f3ff387aecb57e35a8d69b255f66baf2a072269b
 
     return (
         <div className="p-4">
