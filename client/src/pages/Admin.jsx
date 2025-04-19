@@ -103,7 +103,7 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
       {/* Top Bar */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
         {/* Left Section: Search + Filter */}
-        <div className="flex flex-col sm:flex-row items-stretch gap-2 sm:gap-4 w-full sm:w-auto">
+        {/* <div className="flex flex-col sm:flex-row items-stretch gap-2 sm:gap-4 w-full sm:w-auto">
           <input
             type="text"
             placeholder="Search products..."
@@ -115,7 +115,7 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
             <option>Crystals</option>
             <option>Books</option>
           </select>
-        </div>
+        </div> */}
 
         {/* Right Section: Add Button */}
         <button

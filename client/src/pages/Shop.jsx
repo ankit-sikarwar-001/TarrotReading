@@ -17,22 +17,22 @@ const Shop = () => {
       <div className="mb-8 bg-[#2A2A2A]/30 p-4 rounded-lg container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center mb-4">
           {/* Filter Title */}
-          <h2 className="font-serif text-xl mb-4 md:mb-0">Filter Products</h2>
+          {/* <h2 className="font-serif text-xl mb-4 md:mb-0">Filter Products</h2> */}
 
           {/* Filter Buttons */}
-          <div className="flex flex-wrap gap-2">
+          {/* <div className="flex flex-wrap gap-2">
             <button className="px-4 py-1.5 rounded-md text-sm transition-colors bg-[#8A4FFF] text-white">All</button>
             <button className="px-4 py-1.5 rounded-md text-sm transition-colors bg-[#2A2A2A] hover:bg-[#4A3A6A]">Tarot Decks</button>
             <button className="px-4 py-1.5 rounded-md text-sm transition-colors bg-[#2A2A2A] hover:bg-[#4A3A6A]">Crystals</button>
             <button className="px-4 py-1.5 rounded-md text-sm transition-colors bg-[#2A2A2A] hover:bg-[#4A3A6A]">Herbs & Incense</button>
             <button className="px-4 py-1.5 rounded-md text-sm transition-colors bg-[#2A2A2A] hover:bg-[#4A3A6A]">Books</button>
-          </div>
+          </div> */}
         </div>
 
         {/* Price and Sort Controls */}
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Price Range */}
-          <div className="flex-1">
+          {/* <div className="flex-1">
             <label className="block text-sm font-medium mb-1">Price Range</label>
             <input
               type="range"
@@ -44,7 +44,7 @@ const Shop = () => {
               <span>$0</span>
               <span>$100+</span>
             </div>
-          </div>
+          </div> */}
 
           {/* Sort Dropdown */}
           <div className="flex-1">
