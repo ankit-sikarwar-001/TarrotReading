@@ -54,7 +54,7 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
   const navigate = useNavigate();
 
   const handleAddProduct = () => {
-    navigate('/add-product');
+    navigate('/add-product'); scrollTo(0,0);
   };
 
   const handleProductAdded = () => {
@@ -118,8 +118,9 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
         </div> */}
 
         {/* Right Section: Add Button */}
-        <button
-          onClick={handleAddProduct}
+        <button 
+
+          onClick={handleAddProduct }
           className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-md w-full sm:w-auto"
         >
           Add Product
