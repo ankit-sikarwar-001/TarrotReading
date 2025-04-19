@@ -9,6 +9,7 @@ import Admin from './pages/Admin'
 import Footer from './components/Footer'
 import CheckoutPage from './pages/CheckOut'
 import ProductForm from './pages/ProductForm'
+import ProductDetail from './pages/ProductDetail'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -19,6 +20,7 @@ const App = () => {
       <Routes >
         <Route path='/' element={<Home />} />
         <Route path='/shop' element={<Shop />} />
+        <Route path='/product/:id' element={<ProductDetail />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login />} />
         <Route path='/admin' element={<Admin />} />

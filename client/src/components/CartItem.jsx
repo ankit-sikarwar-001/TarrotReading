@@ -1,25 +1,25 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../appContext/AppContext'
+import { useNavigate } from 'react-router-dom'
 
 const CartItem = ({ productId, quantity }) => {
-  const { totalCartItems, setTotalCartItems  } = useContext(AppContext)
+  const { totalCartItems, setTotalCartItems } = useContext(AppContext)
+  const navigate = useNavigate()
 
   const cartItem = totalCartItems.find(item => item._id === productId)
   if (!cartItem) return null
 
-  const handlePlus = () => {
+  const handlePlus = (e) => {
+    e.stopPropagation()
     const updated = totalCartItems.map(p =>
-      ( p._id === productId ? { ...p, quantity: p.quantity + 1 } : p)
+      (p._id === productId ? { ...p, quantity: p.quantity + 1 } : p)
     )
-    console.log(updated);
     setTotalCartItems(updated)
-    localStorage.setItem("tarotCartItems", JSON.stringify(updated));
-    
+    localStorage.setItem("tarotCartItems", JSON.stringify(updated))
   }
 
-  console.log(cartItem);
-  
-  const handleMinus = () => {
+  const handleMinus = (e) => {
+    e.stopPropagation()
     const updated = totalCartItems
       .map(p => {
         if (p._id === productId) {
@@ -28,13 +28,19 @@ const CartItem = ({ productId, quantity }) => {
         return p
       })
       .filter(Boolean)
-      setTotalCartItems(updated)
-      localStorage.setItem("tarotCartItems", JSON.stringify(updated));
+    setTotalCartItems(updated)
+    localStorage.setItem("tarotCartItems", JSON.stringify(updated))
+  }
 
-     }
+  const handleNavigate = (id) => {
+    navigate(`/product/${id}`);  
+  }
 
   return (
-    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 bg-white rounded-lg shadow">
+    <div
+      className="flex flex-col sm:flex-row items-center sm:items-start gap-4 p-4 bg-white rounded-lg shadow cursor-pointer transition hover:shadow-md"
+      onClick={ () => handleNavigate(cartItem._id) }
+    >
       {/* Image */}
       <img
         src={cartItem.image}
@@ -46,7 +52,7 @@ const CartItem = ({ productId, quantity }) => {
       <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex-1">
           <h3 className="text-base font-medium text-gray-800">{cartItem.title}</h3>
-          <p className="text-sm text-gray-500 mt-1">{cartItem.description}</p>
+          <p className="text-sm text-gray-500 mt-1 line-clamp-2">{cartItem.description}</p>
         </div>
 
         {/* Price & Quantity */}
@@ -54,7 +60,7 @@ const CartItem = ({ productId, quantity }) => {
           <p className="font-semibold text-gray-700">
             ₹{(cartItem.price * quantity).toFixed(2)}
           </p>
-          
+
           <div className="flex items-center gap-2">
             <button
               onClick={handleMinus}

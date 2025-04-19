@@ -10,19 +10,17 @@ const Cart = () => {
 
   useEffect(() => {
     const total = totalCartItems.reduce((sum, product) => {
-      const item = allitems.find(i => i.id === product.id)
+      const item = allitems.find(i => i. _id === product._id)
       return sum + (item?.price || 0) * (product?.quantity || 1)
     }, 0)
     setTotalPrice(total)
   }, [totalCartItems, allitems])
 
 
-  console.log('totalprice', totalPrice);
-
-  const subtotal = totalPrice
-  const tax = subtotal * 0.05
-  const shipping = subtotal > 0 ? 50 : 0
-  const total = subtotal + tax + shipping
+  // const subtotal = totalPrice
+  // const tax = subtotal * 0.05
+  // const shipping = subtotal > 0 ? 50 : 0
+  // const total = subtotal + tax + shipping
 
   if (totalCartItems.length === 0) {
     return (
@@ -66,10 +64,10 @@ const Cart = () => {
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Order Summary</h2>
           <div className="space-y-3 text-gray-700">
             <div className="flex justify-between">
-              <span>Subtotal</span>
-              <span>₹{subtotal.toFixed(2)}</span>
+              <span>Total price: </span>
+              <span>₹{totalPrice.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <span>Tax (5%)</span>
               <span>₹{tax.toFixed(2)}</span>
             </div>
@@ -81,11 +79,11 @@ const Cart = () => {
             <div className="flex justify-between font-bold text-lg">
               <span>Total</span>
               <span>₹{total.toFixed(2)}</span>
-            </div>
+            </div> */}
           </div>
 
           {/* Promo Code */}
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <div className="flex flex-col xl:flex-row items-stretch lg:items-center gap-2">
               <input
                 type="text"
@@ -96,11 +94,11 @@ const Cart = () => {
                 Apply
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Checkout Button */}
           <button
-            onClick={() => navigate("/checkout")}
+            onClick={() => {navigate("/checkout"), scrollTo(0,0)}}
             className="mt-4 w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-3 rounded-md transition cursor-pointer"
           >
             Proceed to Checkout

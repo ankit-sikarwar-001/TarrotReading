@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProductForm from './ProductForm'
 import { useNavigate } from 'react-router-dom'
+import { AppContext } from '../appContext/AppContext'
 
 const Admin = () => {
   const [products, setProducts] = useState([])
@@ -8,7 +9,7 @@ const Admin = () => {
   const [showForm, setShowForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null);
 
-
+const { totalOrders, totalPrice, } = useContext(AppContext)
   // Fetch products from backend
   const fetchProducts = async () => {
     try {
@@ -76,13 +77,13 @@ const Admin = () => {
         <div className="bg-[#2D223D] rounded-lg p-6 relative">
           <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">Last 30 days</span>
           <p className="text-sm text-gray-300">Total Orders</p>
-          <h2 className="text-3xl font-semibold mt-2">157</h2>
+          <h2 className="text-3xl font-semibold mt-2">{totalOrders}</h2>
           <p className="text-green-400 text-sm mt-1">↑ 12%</p>
         </div>
         <div className="bg-[#2D223D] rounded-lg p-6 relative">
           <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">Last 30 days</span>
           <p className="text-sm text-gray-300">Revenue</p>
-          <h2 className="text-3xl font-semibold mt-2">$4,285.00</h2>
+          <h2 className="text-3xl font-semibold mt-2">{totalPrice}</h2>
           <p className="text-green-400 text-sm mt-1">↑ 8%</p>
         </div>
         <div className="bg-[#2D223D] rounded-lg p-6 relative">

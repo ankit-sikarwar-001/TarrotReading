@@ -3,6 +3,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Product = require("./Models/ProductModels");
+const Order = require("./Models/OrdersModel"); // Import the Order model
 
 const app = express();
 const PORT = process.env.PORT || 5000; // Port for the server
@@ -60,6 +61,38 @@ app.put("/api/products/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to update product" });
   }
 });
+
+
+
+
+
+
+
+//  ordeer api
+
+// post order
+app.post("/api/orders", async (req, res) => {
+  try {
+    const order = new Order(req.body);
+    await order.save();
+    res.status(201).json({ message: "Order saved successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to save order" });
+  }
+});
+
+// get order
+app.get("/api/orders", async (req, res) => {
+  try {
+    const orders = await Order.find(); // Fetch all orders from the database
+    res.status(200).json(orders); // Send the orders as a JSON response
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch orders" }); // Handle errors
+  }
+});
+
+
+
 
 // Server Start
 app.listen(PORT, () => {
