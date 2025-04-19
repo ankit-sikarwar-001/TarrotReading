@@ -52,26 +52,30 @@ const Home = () => {
 
   return (
     <>
-      <div className=' flex flex-col  justify-center items-center px-5  '>
+      <div className=' flex flex-col  justify-center items-center px-5 relative z-0  '>
+        <div className='relative h-[90vh] w-full'>
+          {/* Background Layer */}
+          <div className='absolute inset-0 bg-[url("https://assets.science.nasa.gov/content/dam/science/astro/universe/internal_resources/506/Optical_Constellations.gif")] bg-cover bg-center opacity-40 z-0'></div>
 
-        <div className='text-white h-[80vh] flex flex-col justify-center text-center gap-7  '>
-          <h1 className='font-bold text-6xl '>Discover Your Destiny</h1>
-          <p> Uncover the mysteries of your future  with our immersive tarot reading experience</p>
-
-          <div>
-            <a href="#tarotCard">
-              <button className="bg-yellow-400 text-black cursor-pointer px-5 py-2 rounded-xl">
-                Begin your reading
-              </button>
-            </a>
-
+          {/* Overlay content */}
+          <div className='text-white h-full flex flex-col justify-center text-center gap-7 relative z-10'>
+            <h1 className='font-bold text-6xl'>Discover Your Destiny</h1>
+            <p>Uncover the mysteries of your future with our immersive tarot reading experience</p>
+            <div>
+              <a href="#tarotCard">
+                <button className="bg-yellow-400 text-black cursor-pointer px-5 py-2 rounded-xl">
+                  Begin your reading
+                </button>
+              </a>
+            </div>
           </div>
         </div>
 
+          <div id='tarotCard' className='relative z-5 bottom-12'></div>
 
-        <div id='tarotCard' className='text-white text-center flex flex-col '>
+        <div  className='text-white text-center flex flex-col '>
 
-          <h1 className='font-bold text-4xl mb-7 '> <span className="text-[#D4AF37]">✧</span> Interactive Tarrot Reading  <span className="text-[#D4AF37]">✧</span></h1>
+          <h1 className='font-bold text-4xl mb-7 '> <span  className="text-[#D4AF37]">✧</span> Interactive Tarrot Reading  <span className="text-[#D4AF37]">✧</span></h1>
           <p> Focus on your question and select three cards for your present past and future </p>
           <div>
             <button onClick={handleShuffle} className='bg-purple-400 px-7 py-2 mt-3 rounded-xl cursor-pointer'>
