@@ -13,7 +13,7 @@ const TimeCard = ({ card, isShuffling }) => {
         <p className='text-sm'>Your card will appear here</p>
       ) : (
         <div className="flex flex-col items-center">
-          <img src={`/images/${card.title}.webp`} alt={card.title} className="w-full h-[200px] object-cover rounded" />
+          <img src={`/images/${card.title}.png`} alt={card.title} className="w-full h-[200px] object-cover rounded" />
           <h2 className="mt-3 font-bold">{card.title}</h2>
           <p className="text-xs mt-1">{card.description}</p>
         </div>

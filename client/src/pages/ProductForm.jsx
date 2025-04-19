@@ -5,7 +5,9 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
     const isEditing = !!editingProduct;
 
     const [formData, setFormData] = useState({
-        name: editingProduct?.name || '',
+        rating: editingProduct?.rating || '',
+        reviews: editingProduct?.reviews || '',
+        tags: editingProduct?.tags || '',
         title: editingProduct?.title || '',
         description: editingProduct?.description || '',
         price: editingProduct?.price || '',

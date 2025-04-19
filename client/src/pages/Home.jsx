@@ -13,11 +13,29 @@ const Home = () => {
     { title: 'The Fool', description: 'New beginnings, adventure, spontaneity' },
     { title: 'The Magician', description: 'Power, skill, concentration' },
     { title: 'The High Priestess', description: 'Intuition, secrets, mystery' },
-    { title: 'The Lovers', description: 'Love, harmony, partnerships' },
+    { title: 'The Empress', description: 'Fertility, beauty, nature, nurturing' },
+    { title: 'The Emperor', description: 'Authority, structure, control, fatherhood' },
+    { title: 'The HieroPhant', description: 'Tradition, spiritual wisdom, conformity' },
+    { title: 'The Lovers', description: 'Love, harmony, partnerships, choices' },
+    { title: 'The Chariot', description: 'Determination, willpower, triumph' },
+    { title: 'Strength', description: 'Courage, inner strength, compassion' },
     { title: 'The Hermit', description: 'Introspection, solitude, guidance' },
+    { title: 'Wheel of Fortune', description: 'Fate, cycles, destiny, turning points' },
+    { title: 'Justice', description: 'Fairness, truth, law, cause and effect' },
+    { title: 'The Hanged Man', description: 'Pause, surrender, new perspective' },
     { title: 'Death', description: 'Transformation, endings, transition' },
-    // ... Add more cards as needed
+    { title: 'Temperance', description: 'Balance, patience, moderation' },
+    { title: 'The Devil', description: 'Addiction, materialism, temptation' },
+    { title: 'The Tower', description: 'Sudden change, upheaval, chaos' },
+    { title: 'The Star', description: 'Hope, inspiration, serenity' },
+    { title: 'The Moon', description: 'Illusion, intuition, uncertainty' },
+    { title: 'The Sun', description: 'Joy, success, positivity, vitality' },
+    { title: 'Judgement', description: 'Rebirth, inner calling, absolution' },
+    { title: 'The World', description: 'Completion, achievement, travel' },
+    // Minor Arcana Example
+    { title: 'Ace of Wands', description: 'Inspiration, potential, new opportunities in creativity or career' }
   ];
+
 
   const [shuffledCards, setShuffledCards] = useState([null, null, null]);
   const [isShuffling, setIsShuffling] = useState(false);
