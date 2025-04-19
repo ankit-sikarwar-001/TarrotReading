@@ -32,7 +32,7 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10 text-white">
+    <div className="container mx-auto px-4 py-10 text-white ">
       <h2 className="text-4xl font-extrabold mb-8 ml-2 sm:ml-6 border-l-4 border-yellow-500 pl-3">
         Product Detail
       </h2>

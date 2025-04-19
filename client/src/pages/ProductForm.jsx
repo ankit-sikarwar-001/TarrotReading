@@ -51,7 +51,7 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
     };
 
     return (
-        <div className="p-4">
+        <div className="p-4 ">
             {!editingProduct&&(
             <button
                 onClick={handleAddProduct}

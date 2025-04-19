@@ -52,10 +52,10 @@ const Home = () => {
 
   return (
     <>
-      <div className=' flex flex-col  justify-center items-center px-5 relative z-0  '>
+      <div className=' flex flex-col  justify-center items-center px-5 relative  bg-[url("https://i.pinimg.com/736x/02/16/f9/0216f989f80d89b8fa742199d40d2359.jpg")] bg-contain bg-center pb-40 '>
         <div className='relative h-[90vh] w-full'>
           {/* Background Layer */}
-          <div className='absolute inset-0 bg-[url("https://assets.science.nasa.gov/content/dam/science/astro/universe/internal_resources/506/Optical_Constellations.gif")] bg-cover bg-center opacity-40 z-0'></div>
+          {/* <div className='absolute inset-0 bg-[url("https://i.pinimg.com/736x/02/16/f9/0216f989f80d89b8fa742199d40d2359.jpg")] bg-cover bg-center opacity-40 z-0'></div> */}
 
           {/* Overlay content */}
           <div className='text-white h-full flex flex-col justify-center text-center gap-7 relative z-10'>

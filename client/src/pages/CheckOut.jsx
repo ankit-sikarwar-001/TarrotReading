@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 const CheckoutPage = () => {
 
 
-  const { allitems, setAllItems, totalCartItems, setTotalCartItems } = useContext(AppContext)
+  const { allitems, totalCartItems, setTotalCartItems } = useContext(AppContext)
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalbuy, setTotalBuy] = useState(0)
 
@@ -141,7 +141,7 @@ console.log("response:", response);
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 ">
       <h1 className='text-white text-3xl font-bold text-center mb-10'> <span className="text-[#D4AF37]">✧</span> Secure Checkout <span className="text-[#D4AF37]">✧</span> </h1>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left side: Shipping Form */}

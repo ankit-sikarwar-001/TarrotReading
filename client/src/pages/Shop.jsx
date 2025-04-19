@@ -9,7 +9,7 @@ const Shop = () => {
   };
 
   return (
-    <div className="flex-grow text-white bg-[rgb(18,18,18)]">
+    <div className="flex-grow text-white bg-[rgb(18,18,18)] ">
       {/* Title */}
       <div className="container mx-auto px-4 py-8">
         <h1 className="font-serif text-3xl font-bold mb-8 text-center">
