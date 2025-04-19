@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect} from 'react';
 import { AppContext } from '../appContext/AppContext';
 import { useNavigate } from 'react-router-dom';
-const Cards = ({condi = false}) => {
-    const { allitems, totalCartItems, setTotalCartItems } = useContext(AppContext)
+const Cards = ({ condi = false, sortOption = 'Featured' }) => {
+    const { allitems, totalCartItems} = useContext(AppContext)
     const [filteredItems, setFilteredItems] = useState([]);
     const navigate = useNavigate()
     const renderStars = (rating) => {
@@ -43,13 +43,30 @@ const Cards = ({condi = false}) => {
         }   
     }
 
+
     useEffect(() => {
-      if (condi) {
-        setFilteredItems(allitems.slice(0, 3)); // use `slice` instead of `splice` to avoid mutating the original array
-      } else {
-        setFilteredItems(allitems);
-      }
-    }, [condi, allitems]);
+        let items = condi ? allitems.slice(0, 3) : [...allitems];
+
+        // Sorting logic
+        switch (sortOption) {
+            case 'Price: Low to High':
+                items.sort((a, b) => a.price - b.price);
+                break;
+            case 'Price: High to Low':
+                items.sort((a, b) => b.price - a.price);
+                break;
+            case 'Newest':
+                items.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // assumes `createdAt` exists
+                break;
+            case 'Featured':
+            default:
+                // Could sort by rating or leave as-is
+                items.sort((a, b) => b.rating - a.rating);
+                break;
+        }
+
+        setFilteredItems(items);
+    }, [condi, allitems, sortOption]);
 
     return (
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 container mx-auto px-4 pb-10">
