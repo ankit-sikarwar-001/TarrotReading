@@ -3,10 +3,11 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Product = require("./Models/ProductModels");
+const admin = require("./Models/Login");
 const Order = require("./Models/OrdersModel"); // Import the Order model
 
 const app = express();
-const PORT = process.env.PORT || 5000; // Port for the server
+const PORT = process.env.PORT || 3001; // Port for the server
 
 app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON
@@ -62,6 +63,29 @@ app.put("/api/products/:id", async (req, res) => {
   }
 });
 
+//  ordeer api
+
+// post order
+app.post("/api/login", async (req, res) => {
+  try {
+    const order = new admin(req.body);
+    await order.save();
+    res.status(201).json({ message: "Admin saved successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to save data" });
+  }
+});
+
+
+// get order
+app.get("/api/login", async (req, res) => {
+  try {
+    const orders = await admin.find(); // Fetch all orders from the database
+    res.status(200).json(orders); // Send the orders as a JSON response
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch orders" }); // Handle errors
+  }
+});
 
 
 
@@ -80,6 +104,7 @@ app.post("/api/orders", async (req, res) => {
     res.status(500).json({ error: "Failed to save order" });
   }
 });
+
 
 // get order
 app.get("/api/orders", async (req, res) => {

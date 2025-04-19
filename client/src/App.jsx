@@ -9,6 +9,7 @@ import Admin from './pages/Admin'
 import Footer from './components/Footer'
 import CheckoutPage from './pages/CheckOut'
 import ProductForm from './pages/ProductForm'
+import ProtectedRoute from './components/ProtectedRoute';
 import ProductDetail from './pages/ProductDetail'
 
 const App = () => {
@@ -23,7 +24,11 @@ const App = () => {
         <Route path='/product/:id' element={<ProductDetail />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/admin' element={<Admin />} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        } />
         <Route path='/checkout' element={<CheckoutPage />} />
         <Route path="/add-product" element={<ProductForm />} />
 

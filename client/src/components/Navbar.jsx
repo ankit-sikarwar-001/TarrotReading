@@ -1,9 +1,12 @@
 import React from 'react'
 import { MoonIcon, Menu, X } from "lucide-react"
+import { useAuth } from '../appContext/AuthContext';
+
 import { NavLink, useNavigate } from 'react-router-dom'
 
 const Navbar = ({ menuOpen, setMenuOpen }) => {
   const navigate = useNavigate()
+  const { isAuthenticated, logout } = useAuth();
 
   return (
     <>
@@ -39,12 +42,25 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
           >
             🛒 Cart
           </span>
-          <span
-            onClick={() =>{ navigate("/admin"), scrollTo(0, 0)}}
+          {isAuthenticated ? (
+            <span
+              onClick={() => {
+                logout();
+                navigate('/');
+              }}
+              className="cursor-pointer hover:text-red-500"
+            >
+              Logout
+            </span>
+          ):(
+
+            <span
+            onClick={() =>{ navigate("/login"), scrollTo(0, 0)}}
             className="cursor-pointer hover:text-yellow-500"
-          >
+            >
             Admin
           </span>
+          )}
 
              </div>
 
@@ -66,7 +82,7 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
               }}>Home</NavLink>
               <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/shop" onClick={() => {scrollTo(0, 0), setMenuOpen(false)}}>Shop</NavLink>
               <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/cart" onClick={() =>  { scrollTo(0, 0), setMenuOpen(false)} }>🛒Cart</NavLink>
-              <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/admin" onClick={() => {scrollTo(0, 0), setMenuOpen(false)}}>Admin</NavLink>
+              <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl transition-colors duration-75" to="/login" onClick={() => {scrollTo(0, 0), setMenuOpen(false)}}>Admin</NavLink>
             </div>
           )}
         </div>
