@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../appContext/AppContext';
 
 const ProductDetail = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { allitems, totalCartItems } = useContext(AppContext);
   const { id } = useParams();
   const product = allitems.find((item) => item._id === id);
@@ -17,19 +17,19 @@ const ProductDetail = () => {
     e.preventDefault();
     const item = allitems.find((item) => item._id === id);
     if (item) {
-        const existingItem = totalCartItems.find((cartItem) => cartItem._id === id);
-        if (existingItem) {
-            existingItem.quantity += 1; // Increment quantity if already in cart
-        } else {
-            totalCartItems.push({ ...item, quantity: 1 }); // Add new item to cart
-        }
-        localStorage.setItem("tarotCartItems", JSON.stringify(totalCartItems));
-       navigate("/cart"); // Navigate to cart page
-       scrollTo(0,0)
+      const existingItem = totalCartItems.find((cartItem) => cartItem._id === id);
+      if (existingItem) {
+        existingItem.quantity += 1; // Increment quantity if already in cart
+      } else {
+        totalCartItems.push({ ...item, quantity: 1 }); // Add new item to cart
+      }
+      localStorage.setItem("tarotCartItems", JSON.stringify(totalCartItems));
+      navigate("/cart"); // Navigate to cart page
+      scrollTo(0, 0)
     } else {
-        alert("Product not found");
-    }   
-}
+      alert("Product not found");
+    }
+  }
 
   return (
     <div className="container mx-auto px-4 py-10 text-white">
@@ -55,8 +55,8 @@ const ProductDetail = () => {
           <p className="text-2xl font-semibold text-yellow-400">${product.price}</p>
 
           {/* Stock */}
-          <p className={`text-sm font-medium ${product.stock > 0 ? 'text-green-400' : 'text-red-500'}`}>
-            {product.stock > 0 ? `In Stock: ${product.stock}` : 'Out of Stock'}
+          <p className={`text-sm font-medium ${product.stocks > 0 ? 'text-green-400' : 'text-red-500'}`}>
+            {product.stocks > 0 ? `In Stock: ${product.stocks}` : 'Out of Stock'}
           </p>
 
           {/* Tags */}
@@ -75,12 +75,30 @@ const ProductDetail = () => {
 
           {/* Buy Now */}
           <button
-          onClick={(e) => handleToBuy(e, product._id)} 
+            onClick={(e) => handleToBuy(e, product._id)}
             className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-8 rounded-xl transition duration-300 w-fit disabled:opacity-50"
             disabled={product.stock === 0}
           >
             Buy Now
           </button>
+
+
+
+          {/* Rating & Reviews */}
+          {product.rating && product.reviews && (
+            <div className="flex items-center gap-3 mt-2">
+              <div className="flex items-center text-yellow-400 text-lg">
+                {[...Array(5)].map((_, index) => (
+                  <span key={index}>
+                    {index < Math.round(product.rating) ? '★' : '☆'}
+                  </span>
+                ))}
+              </div>
+              <p className="text-sm text-gray-400">
+                {product.rating.toFixed(1)} ( { product.reviews} Reviews )
+              </p>
+            </div>
+          )}
 
           {/* Description */}
           <p className="text-gray-300 leading-relaxed text-lg">{product.description}</p>

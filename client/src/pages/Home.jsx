@@ -53,6 +53,7 @@ const Home = () => {
   return (
     <>
       <div className=' flex flex-col  justify-center items-center px-5  '>
+
         <div className='text-white h-[80vh] flex flex-col justify-center text-center gap-7  '>
           <h1 className='font-bold text-6xl '>Discover Your Destiny</h1>
           <p> Uncover the mysteries of your future  with our immersive tarot reading experience</p>

@@ -6,7 +6,7 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
     const [filteredItems, setFilteredItems] = useState([]);
     const navigate = useNavigate()
     const renderStars = (rating) => {
-        const fullStars = Math.floor(rating);
+        const fullStars = Math.round(rating);
         const hasHalf = rating % 1 !== 0;
         let stars = '★'.repeat(fullStars);
         if (hasHalf) stars += '☆';
@@ -88,9 +88,9 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
                     {/* Content */}
                     <div className="p-4">
                         <h3 className="text-lg font-semibold text-white">{product.title}</h3>
-                        <div className="flex items-center text-sm text-gray-300 mt-1 mb-2">
+                        <div className="flex items-center text-sm text-yellow-400 mt-1 mb-2">
                             <span>{renderStars(product.rating)}</span>
-                            <span className="ml-2 text-xs">({product.reviews})</span>
+                            <span className="ml-2 text-gray-300 text-xs">({product.reviews} reviews )</span>
                         </div>
                         <p className="text-sm text-gray-400 mb-3 line-clamp-3">{product.description}</p>
 
