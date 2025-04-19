@@ -1,17 +1,18 @@
 import React from 'react';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaQuoteLeft } from 'react-icons/fa';
 
-const Testimonialscard = () => {
+const Testimonialscard = ({ quote, name, rating = 5 }) => {
   return (
-    <div className='w-full sm:w-[90%] md:w-[400px] bg-gray-500 border-2 border-yellow-400 rounded-lg p-4 text-white space-y-3'>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, suscipit maxime?
+    <div className="w-full md:w-[48%] bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1e] text-white rounded-lg p-6 space-y-4 shadow-md">
+      <p className="italic text-gray-200">
+        <FaQuoteLeft className="inline-block text-yellow-400 mr-2" />
+        {quote}
       </p>
-      <div className='flex items-center'>
-        <FaStar className="text-yellow-300" />
-        <FaStar className="text-yellow-300" />
-        <FaStar className="text-yellow-300" />
-        <span className='pl-5'>Lorem</span>
+      <div className="flex items-center mt-2">
+        {[...Array(rating)].map((_, index) => (
+          <FaStar key={index} className="text-yellow-400 mr-1" />
+        ))}
+        <span className="font-semibold ml-3">{name}</span>
       </div>
     </div>
   );
