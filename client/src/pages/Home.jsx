@@ -4,9 +4,15 @@ import { useState } from 'react'
 import Testimonialscard from '../components/Testimonialscard'
 import { useNavigate } from 'react-router-dom'
 import Cards from '../components/Cards'
+import toast from 'react-hot-toast'
 
 const Home = () => {
   const navigate = useNavigate()
+
+  const [user, setUser] = useState({
+    name: "",
+    age: ""
+  })
 
   // timecard for shuffle card 
   const tarotDeck = [
@@ -41,7 +47,16 @@ const Home = () => {
   const [isShuffling, setIsShuffling] = useState(false);
 
   const handleShuffle = () => {
+    const { name, age } = user;
+    if (!name || !age) {
+      toast.error("Please fill out all the fields before placing the order.");
+      return;
+    }
     setIsShuffling(true);
+    setUser({
+      name: "",
+      age: ""
+    })
     setTimeout(() => {
       const selected = [...tarotDeck].sort(() => 0.5 - Math.random()).slice(0, 3);
       setShuffledCards(selected);
@@ -49,16 +64,19 @@ const Home = () => {
     }, 1000); // Match TimeCard animation duration
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser(prev => ({ ...prev, [name]: value }));
+  };
+  console.log(user);
 
   return (
     <>
-      <div className=' flex flex-col  justify-center items-center px-5 relative  bg-[url("https://i.pinimg.com/736x/02/16/f9/0216f989f80d89b8fa742199d40d2359.jpg")] bg-contain bg-center pb-40 '>
-        <div className='relative h-[90vh] w-full'>
-          {/* Background Layer */}
-          {/* <div className='absolute inset-0 bg-[url("https://i.pinimg.com/736x/02/16/f9/0216f989f80d89b8fa742199d40d2359.jpg")] bg-cover bg-center opacity-40 z-0'></div> */}
+      <div className=' flex flex-col  justify-center items-center px-5 relative ]  pb-40 '>
+        <div className='relative h-[80vh] w-full'>
 
           {/* Overlay content */}
-          <div className='text-white h-full flex flex-col justify-center text-center gap-7 relative z-10'>
+          <div className='text-white h-full flex flex-col justify-center text-center gap-7 relative '>
             <h1 className='font-bold text-6xl'>Discover Your Destiny</h1>
             <p>Uncover the mysteries of your future with our immersive tarot reading experience</p>
             <div>
@@ -71,14 +89,24 @@ const Home = () => {
           </div>
         </div>
 
-          <div id='tarotCard' className='relative z-5 bottom-12'></div>
+        <div id='tarotCard' className='relative z-5 bottom-12'></div>
 
-        <div  className='text-white text-center flex flex-col '>
+        <div className='text-white text-center flex flex-col '>
 
-          <h1 className='font-bold text-4xl mb-7 '> <span  className="text-[#D4AF37]">✧</span> Interactive Tarrot Reading  <span className="text-[#D4AF37]">✧</span></h1>
+          <h1 className='font-bold text-4xl mb-2 '>
+            <span className="text-[#D4AF37]">✧</span>
+            Interactive Tarrot Reading  <span className="text-[#D4AF37]">✧</span>
+          </h1>
+
           <p> Focus on your question and select three cards for your present past and future </p>
           <div>
-            <button onClick={handleShuffle} className='bg-purple-400 px-7 py-2 mt-3 rounded-xl cursor-pointer'>
+            <div>
+              <form className="mt-4 space-y-4 bg-[#1f1f1f] p-6 rounded-lg" >
+                <input required name="name" value={user.name} onChange={handleChange} placeholder="name" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
+                <input required name="age" value={user.age} onChange={handleChange} placeholder="age" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
+                 </form>
+            </div>
+            <button onClick={handleShuffle} className='bg-purple-400 px-7 py-2 mt-7 rounded-xl cursor-pointer'>
               Shuffle Cards
             </button>
 
@@ -125,28 +153,28 @@ const Home = () => {
           <button onClick={() => { navigate("/shop"), scrollTo(0, 0) }} className='hover:bg-yellow-400 hover:text-black cursor-pointer text-yellow-400 border-2 border-yellow-400 rounded-xl px-5 py-2'>View All Products</button>
         </div>
 
-{/* testimonials */}
-<div className='text-white mt-40 px-4'>
-        <h1 className='text-4xl font-bold mb-16 text-center'> <span className="text-[#D4AF37]">✧</span> Customer Testimonials  <span className="text-[#D4AF37]">✧</span></h1>
+        {/* testimonials */}
+        <div className='text-white mt-40 px-4'>
+          <h1 className='text-4xl font-bold mb-16 text-center'> <span className="text-[#D4AF37]">✧</span> Customer Testimonials  <span className="text-[#D4AF37]">✧</span></h1>
 
-        <div className="flex flex-col md:flex-row justify-center items-center md:gap-8 gap-6">
-          <Testimonialscard
-            quote="The reading I received was surprisingly accurate. It helped me gain clarity during a difficult time in my life. Highly recommended!"
-            name="Sarah K."
-          />
-          <Testimonialscard
-            quote="The tarot deck I purchased is beautiful and high quality. The energy from these cards feels so right for my practice. The guidebook is very helpful too."
-            name="Michael T."
-            rating={4}
-          />
+          <div className="flex flex-col md:flex-row justify-center items-center md:gap-8 gap-6">
+            <Testimonialscard
+              quote="The reading I received was surprisingly accurate. It helped me gain clarity during a difficult time in my life. Highly recommended!"
+              name="Sarah K."
+            />
+            <Testimonialscard
+              quote="The tarot deck I purchased is beautiful and high quality. The energy from these cards feels so right for my practice. The guidebook is very helpful too."
+              name="Michael T."
+              rating={4}
+            />
+          </div>
         </div>
-      </div>
 
       </div>
 
 
 
-      
+
 
 
 

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import ProductForm from './ProductForm'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../appContext/AppContext'
+import toast from 'react-hot-toast';
 
 const Admin = () => {
   const [products, setProducts] = useState([])
@@ -27,25 +28,83 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
   };
 
   // delete icon 
-  const handleDeleteProduct = async (productId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
-    if (!confirmDelete) return;
+  // const handleDeleteProduct = async (productId) => {
+  //   const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+  //   if (!confirmDelete) return;
 
-    try {
-      const res = await fetch(`http://localhost:3001/api/products/${productId}`, {
-        method: 'DELETE',
-      });
+  //   try {
+  //     const res = await fetch(`http://localhost:3001/api/products/${productId}`, {
+  //       method: 'DELETE',
+  //     });
 
-      if (res.ok) {
-        fetchProducts(); // Refresh product list
-      } else {
-        console.error('Failed to delete product');
+  //     if (res.ok) {
+  //       fetchProducts(); // Refresh product list
+  //     } else {
+  //       console.error('Failed to delete product');
+  //     }
+  //   } catch (err) {
+  //     console.error('Error deleting product:', err);
+  //   }
+  // };
+
+
+// Toast-based confirmation
+const confirmAction = (callback) => {
+  toast((t) => (
+    <div className="text-white w-full h-full">
+      <p className="text-lg font-semibold mb-4">Are you sure you want to delete this product?</p>
+      <div className="flex justify-end gap-4">
+        <button
+          onClick={() => {
+            toast.dismiss(t.id);
+            callback(); // confirmed action
+          }}
+          className="bg-green-500 hover:bg-green-600 px-5 py-2 rounded-md text-sm font-medium transition"
+        >
+          Yes
+        </button>
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className="bg-red-500 hover:bg-red-600 px-5 py-2 rounded-md text-sm font-medium transition"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  ), {
+    duration: 10000,
+    style: {
+      background: '#1f2937',
+      color: '#fff',
+      width: '440px',
+      minHeight: '160px',
+      padding: '24px',
+      borderRadius: '16px',
+    },
+  });
+};
+
+  const handleDeleteProduct = (productId) => {
+    confirmAction(async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/products/${productId}`, {
+          method: 'DELETE',
+        });
+  
+        if (res.ok) {
+          fetchProducts(); // Refresh product list
+          toast.success("Product deleted successfully!");
+        } else {
+          toast.error("Failed to delete product.");
+          console.error('Failed to delete product');
+        }
+      } catch (err) {
+        toast.error("Error deleting product.");
+        console.error('Error deleting product:', err);
       }
-    } catch (err) {
-      console.error('Error deleting product:', err);
-    }
+    });
   };
-
+  
 
   useEffect(() => {
     fetchProducts()
