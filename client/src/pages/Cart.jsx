@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
   const navigate = useNavigate()
-  const { allitems, totalCartItems} = useContext(AppContext)
+  const { allitems, totalCartItems, setTotalCartItems} = useContext(AppContext)
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
@@ -22,7 +22,17 @@ const Cart = () => {
   // const shipping = subtotal > 0 ? 50 : 0
   // const total = subtotal + tax + shipping
 
-  if (totalCartItems.length === 0) {
+
+  useEffect(() => {
+    if ((totalCartItems.length > 0) && (allitems.length === 0)) {
+      localStorage.removeItem("tarotCartItems");
+      setTotalCartItems([]);
+    }
+  }, [allitems]); // ✅ only depend on `allitems`
+
+   
+  
+  if (totalCartItems.length === 0 || allitems.length === 0) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center  text-white px-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Your Cart is Empty 🛒</h1>

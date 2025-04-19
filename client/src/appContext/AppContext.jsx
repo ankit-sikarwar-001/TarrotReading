@@ -24,10 +24,11 @@ export const AppContextProvider = ({ children }) => {
 
 
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const getProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/products", {
+      const response = await fetch(`${backendUrl}/api/products`, {
         method: "GET"
       });
       const data = await response.json(); // Await the JSON parsing
@@ -45,13 +46,13 @@ export const AppContextProvider = ({ children }) => {
 
   const getOrders = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/orders", {
+      const response = await fetch(`${backendUrl}/api/orders`, {
         method: "GET"
       });
       console.log("response app:", response); // Log the response object
 
       const data = await response.json();
-      console.log("data app: ", data); // Log the parsed data
+  
       const totalOrders = data.reduce((sum, item) => sum + item.totalorders, 0);
       const totalPrice = data.reduce((sum, item) => sum + item.totalPrice, 0);
       setTotalOrders(totalOrders)

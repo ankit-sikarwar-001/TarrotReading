@@ -10,11 +10,13 @@ const Admin = () => {
   const [showForm, setShowForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null);
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const { totalOrders, totalPrice, } = useContext(AppContext)
   // Fetch products from backend
   const fetchProducts = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/products');
+      const res = await fetch(`${backendUrl}/api/products`);
       const data = await res.json();
       setProducts(data);
 
@@ -49,6 +51,7 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
 
 
 // Toast-based confirmation
+// delete icon
 const confirmAction = (callback) => {
   toast((t) => (
     <div className="text-white w-full h-full">
@@ -87,7 +90,7 @@ const confirmAction = (callback) => {
   const handleDeleteProduct = (productId) => {
     confirmAction(async () => {
       try {
-        const res = await fetch(`http://localhost:3001/api/products/${productId}`, {
+        const res = await fetch(`${backendUrl}/api/products/${productId}`, {
           method: 'DELETE',
         });
   

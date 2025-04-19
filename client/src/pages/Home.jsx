@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import TimeCard from '../components/TimeCard'
 import { useState } from 'react'
 import Testimonialscard from '../components/Testimonialscard'
 import { useNavigate } from 'react-router-dom'
 import Cards from '../components/Cards'
 import toast from 'react-hot-toast'
+import { AppContext } from '../appContext/AppContext'
 
 const Home = () => {
   const navigate = useNavigate()
 
+  const { allitems } = useContext(AppContext)
   const [user, setUser] = useState({
     name: "",
     age: ""
@@ -138,6 +140,7 @@ const Home = () => {
 
 
         {/* shooping cards */}
+        
         <div className="text-white mt-40 flex flex-col justify-center items-center w-full px-4 sm:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10">
             <span className="text-[#D4AF37]">✧</span> Featured Spiritual Items <span className="text-[#D4AF37]">✧</span>
@@ -150,7 +153,7 @@ const Home = () => {
 
 
         <div>
-          <button onClick={() => { navigate("/shop"), scrollTo(0, 0) }} className='hover:bg-yellow-400 hover:text-black cursor-pointer text-yellow-400 border-2 border-yellow-400 rounded-xl px-5 py-2'>View All Products</button>
+          <button onClick={() => { navigate("/shop"), scrollTo(0, 0) }} className='hover:bg-yellow-400 hover:text-black cursor-pointer text-yellow-400 border-2 border-yellow-400 rounded-xl px-5 py-2'>{allitems.length === 0 ? "Products is coming soon..." : "View All Products"}</button>
         </div>
 
         {/* testimonials */}

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom'
 
 const ProductForm = ({ onProductAdded, editingProduct }) => {
     const isEditing = !!editingProduct;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     const [formData, setFormData] = useState({
         rating: editingProduct?.rating || '',
@@ -22,14 +24,15 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
     const navigate = useNavigate();
 
     const handleAddProduct = () => {
+        toast.success("Product Added Successfully")
         navigate('/admin');
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const url = isEditing
-            ? `http://localhost:3001/api/products/${editingProduct._id}`
-            : 'http://localhost:3001/api/products';
+            ? `${backendUrl}/api/products/${editingProduct._id}`
+            : `${backendUrl}/api/products`;
         const method = isEditing ? 'PUT' : 'POST';
 
         try {

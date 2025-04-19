@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 
 const CheckoutPage = () => {
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const { allitems, totalCartItems, setTotalCartItems } = useContext(AppContext)
   const [totalPrice, setTotalPrice] = useState(0)
@@ -38,7 +39,7 @@ const CheckoutPage = () => {
       return;
     }
 
-   
+
     // Show success message
     toast.success("Order placed successfully!");
 
@@ -47,7 +48,7 @@ const CheckoutPage = () => {
     setTotalCartItems([]);
 
     // WhatsApp link
-     //  store in database Revenue   and Total Orders
+    //  store in database Revenue   and Total Orders
     //  const orderData = {
     //   totalPrice: totalPrice,
     //   totalbuy: totalbuy,
@@ -74,61 +75,61 @@ const CheckoutPage = () => {
       })),
       message: `Hi, I want to place an order. My name is ${firstName} ${lastName} and my email is ${email}`,
     };
-    
+
     // Convert orderData to a string message
     let message = `${orderData.message}\n\nOrder Summary:\n`;
-    
+
     orderData.products.forEach((item, index) => {
       message += `${index + 1}. ${item.title} - ₹${item.price} x ${item.quantity}\n`;
     });
-    
+
     message += `\nTotal Buy: ${orderData.totalbuy}\nTotal Price: ₹${orderData.totalPrice}`;
-    
+
     const whatsappLink = `https://wa.me/918168584557?text=${encodeURIComponent(message)}`;
-    
+
     // Example: redirect to WhatsApp
     window.open(whatsappLink, "_blank");
-    
+
 
     // Navigate to home
     navigate("/");
 
 
-//   payment process
+    //   payment process
 
 
 
-// orders database 
-const orderDetails = {
-  totalPrice: totalPrice,
-  totalorders: totalbuy,
-  };
+    // orders database 
+    const orderDetails = {
+      totalPrice: totalPrice,
+      totalorders: totalbuy,
+    };
 
-  console.log("Order Details:", orderDetails);
 
-  // Send order details to the server
-const sendOrderToServer = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderDetails),
-      });
-console.log("response:", response);
-      const data = await response.json();
-      console.log("data:", data); 
-      console.log("Order placed successfully:", data);
-    } catch (error) {
-      console.error("Error placing order:", error);
+
+    // Send order details to the server
+    const sendOrderToServer = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/api/orders`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderDetails),
+        });
+        console.log("response:", response);
+        const data = await response.json();
+        console.log("data:", data);
+        console.log("Order placed successfully:", data);
+      } catch (error) {
+        console.error("Error placing order:", error);
+      }
     }
-  }
-
-     
 
 
-  sendOrderToServer(); // Call the function to send order details to the server
+
+
+    sendOrderToServer(); // Call the function to send order details to the server
   };
 
 
