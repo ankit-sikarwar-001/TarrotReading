@@ -9,7 +9,7 @@ const Shop = () => {
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
-console.log(allitems);
+
 
 if (allitems.length === 0) {
   return (
