@@ -17,7 +17,7 @@ app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON
 app.use("/api/visits", visitorRoutes); // for visitors
 
-mongoose.connect(`mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`);
+await mongoose.connect(`mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`);
 
 // POST API to receive form data
 app.post("/api/products", upload.single("image"), async (req, res) => {
