@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express"
 require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -17,7 +17,17 @@ app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON
 app.use("/api/visits", visitorRoutes); // for visitors
 
-mongoose.connect(`mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`);
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(`mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`);
+    console.log(`MongoDB connected successfully!`);
+  } catch (error) {
+    console.error(`Error mongodb connection: ${error.message}`);
+    // process.exit(1);
+  }
+};
+connectDB();
 
 // POST API to receive form data
 app.post("/api/products", upload.single("image"), async (req, res) => {
