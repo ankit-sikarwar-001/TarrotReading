@@ -8,7 +8,7 @@ const Order = require("./Models/OrdersModel"); // Import the Order model
 const cloudinary = require('./config/cloudinary.js');
 const upload = require('./config/multer.js');
 const app = express();
-const PORT = process.env.PORT || 3001; // Port for the server
+const PORT = process.env.PORT || 4000; // Port for the server
 const visitorRoutes = require("./Routes/Visitor.js");
 
 
