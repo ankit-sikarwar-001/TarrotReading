@@ -198,7 +198,9 @@ app.get("/api/login", async (req, res) => {
 });
 
 
-
+app.get("/", (req, res)=> {
+  res.send("app running")
+})
 
 
 
