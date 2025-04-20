@@ -2,9 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import ProductForm from './ProductForm'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../appContext/AppContext'
+import { useAuth } from '../appContext/AuthContext';
+
 import toast from 'react-hot-toast';
 
 const Admin = () => {
+    const { isAuthenticated, logout } = useAuth();
+  
   const [products, setProducts] = useState([])
   const [totalInventory, setTotalInventory] = useState(0);
   const [showForm, setShowForm] = useState(false)
@@ -129,6 +133,17 @@ const confirmAction = (callback) => {
   return (
     <div className="min-h-screen bg-black text-white p-6 relative z-0">
       {/* Header */}
+      {isAuthenticated && (
+        <span
+          onClick={() => {
+            logout();
+            navigate('/');
+          }}
+          className="cursor-pointer bg-gray-500 hover:text-white hover:bg-red-500"
+        >
+          Logout
+        </span>
+      )}
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold text-yellow-400">✨ Admin Dashboard ✨</h1>
         <p className="text-sm text-gray-400 mt-2">Manage your mystic products and services</p>

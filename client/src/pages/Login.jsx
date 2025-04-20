@@ -17,7 +17,7 @@ const Login = () => {
       const adminData = response.data[0];
 
       if (adminData.admin === name && adminData.password === password) {
-        login(); // update context + localStorage
+        login(); // ✅ this updates context + localStorage
         navigate('/admin');
       } else {
         setError("Invalid username or password");
