@@ -47,23 +47,6 @@ const CheckoutPage = () => {
     localStorage.removeItem("tarotCartItems");
     setTotalCartItems([]);
 
-    // WhatsApp link
-    //  store in database Revenue   and Total Orders
-    //  const orderData = {
-    //   totalPrice: totalPrice,
-    //   totalbuy: totalbuy,
-    //   products: totalCartItems.map(item => ({
-    //    title: item.title,
-    //     price: item.price,
-    //     quantity: item.quantity
-    //   })),
-    //   message: `Hi, I want to place an order. My name is ${firstName} ${lastName} and my email is ${email}`,
-    //   };
-    // const whatsappLink = `https://wa.me/917206029022?text=${encodeURIComponent(...orderData)}`;
-
-    // // Redirect to WhatsApp
-    // window.open(whatsappLink, "_blank");
-
 
     const orderData = {
       totalPrice: totalPrice,
@@ -85,7 +68,7 @@ const CheckoutPage = () => {
 
     message += `\nTotal Buy: ${orderData.totalbuy}\nTotal Price: ₹${orderData.totalPrice}`;
 
-    const whatsappLink = `https://wa.me/918168584557?text=${encodeURIComponent(message)}`;
+    const whatsappLink = `https://wa.me/91${import.meta.env.VITE_MO}?text=${encodeURIComponent(message)}`;
 
     // Example: redirect to WhatsApp
     window.open(whatsappLink, "_blank");
