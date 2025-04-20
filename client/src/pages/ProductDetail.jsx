@@ -55,9 +55,9 @@ const ProductDetail = () => {
           <p className="text-2xl font-semibold text-yellow-400">${product.price}</p>
 
           {/* Stock */}
-          <p className={`text-sm font-medium ${product.stocks > 0 ? 'text-green-400' : 'text-red-500'}`}>
+          {/* <p className={`text-sm font-medium ${product.stocks > 0 ? 'text-green-400' : 'text-red-500'}`}>
             {product.stocks > 0 ? `In Stock: ${product.stocks}` : 'Out of Stock'}
-          </p>
+          </p> */}
 
           {/* Tags */}
           {product.tags && product.tags.length > 0 && (
@@ -77,7 +77,7 @@ const ProductDetail = () => {
           <button
             onClick={(e) => handleToBuy(e, product._id)}
             className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-8 rounded-xl transition duration-300 w-fit disabled:opacity-50"
-            disabled={product.stock === 0}
+            // disabled={product.stock === 0}
           >
             Buy Now
           </button>

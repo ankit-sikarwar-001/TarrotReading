@@ -2,19 +2,40 @@ import React, { useContext, useEffect, useState } from 'react'
 import ProductForm from './ProductForm'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../appContext/AppContext'
-import { useAuth } from '../appContext/AuthContext';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
 
 import toast from 'react-hot-toast';
 
 const Admin = () => {
-    const { isAuthenticated, logout } = useAuth();
   
   const [products, setProducts] = useState([])
-  const [totalInventory, setTotalInventory] = useState(0);
   const [showForm, setShowForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+ 
+  //for visitors only
+  const [visitData, setVisitData] = useState([]);
+
+  const fetchVisits = async () => {
+    try {
+      const res = await fetch(`${backendUrl}/api/visits`);
+      const data = await res.json();
+      setVisitData(data.map(entry => ({
+        date: entry.date.slice(5), // MM-DD
+        count: entry.count
+      })));
+    } catch (err) {
+      console.error("Failed to fetch visit data", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+    fetchVisits(); // new
+  }, []);
+
 
 const { totalOrders, totalPrice, } = useContext(AppContext)
   // Fetch products from backend
@@ -25,8 +46,8 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
       setProducts(data);
 
       // Calculate inventory (sum of stocks of all products)
-      const inventory = data.reduce((total, product) => total + parseInt(product.stocks || 0), 0);
-      setTotalInventory(inventory);
+      // const inventory = data.reduce((total, product) => total + parseInt(product.stocks || 0), 0);
+      // setTotalInventory(inventory);
 
     } catch (err) {
       console.error('Failed to fetch products:', err);
@@ -133,17 +154,7 @@ const confirmAction = (callback) => {
   return (
     <div className="min-h-screen bg-black text-white p-6 relative z-0">
       {/* Header */}
-      {isAuthenticated && (
-        <span
-          onClick={() => {
-            logout();
-            navigate('/');
-          }}
-          className="cursor-pointer bg-gray-500 hover:text-white hover:bg-red-500"
-        >
-          Logout
-        </span>
-      )}
+      
       <div className="text-center mb-10">
         <h1 className="text-3xl font-bold text-yellow-400">✨ Admin Dashboard ✨</h1>
         <p className="text-sm text-gray-400 mt-2">Manage your mystic products and services</p>
@@ -164,16 +175,19 @@ const confirmAction = (callback) => {
           <p className="text-green-400 text-sm mt-1">↑ 8%</p>
         </div>
         <div className="bg-[#2D223D] rounded-lg p-6 relative">
-          {totalInventory <= 15 ? (
-            <span className="absolute top-2 right-2 bg-red-600 text-xs px-2 py-1 rounded-full">low stocks</span>
-          ) : (
-              <span className="absolute top-2 right-2 bg-green-600 text-xs px-2 py-1 rounded-full">Active</span>
-          )}
-          
-          <p className="text-sm text-gray-300">Inventory</p>
-          <h2 className="text-3xl font-semibold mt-2">{totalInventory}</h2>
-          <p className="text-gray-400 text-sm mt-1">products in stock</p>
+          <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">Last 7 days</span>
+          <p className="text-sm text-gray-300 mb-2">Visitors</p>
+          <ResponsiveContainer width="100%" height={100}>
+            <LineChart data={visitData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+              <XAxis dataKey="date" stroke="#ccc" fontSize={12} />
+              <YAxis stroke="#ccc" fontSize={12} />
+              <Tooltip />
+              <Line type="monotone" dataKey="count" stroke="#FACC15" strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
+
       </div>
 
       {/* Top Bar */}
@@ -221,8 +235,6 @@ const confirmAction = (callback) => {
               <th className="p-4">Product</th>
               <th>Category</th>
               <th>Price</th>
-              <th>Stock</th>
-              <th>Status</th>
               <th className="text-right pr-6">Actions</th>
             </tr>
           </thead>
@@ -233,19 +245,19 @@ const confirmAction = (callback) => {
                   <img src={product.image || 'https://via.placeholder.com/40'} alt={product.name} className="w-10 h-10 rounded" />
                   <div>
                     <p>{product.name}</p>
-                    <span className="text-gray-500 text-xs">SKU: {product.title || 'N/A'}</span>
+                    <span className="text-gray-200 text-xs">SKU: {product.title || 'N/A'}</span>
                   </div>
                 </td>
                 <td className="min-w-[150px]">{product.description}</td>
                 <td className="text-yellow-400 min-w-[100px]">${parseFloat(product.price).toFixed(2)}</td>
-                <td className="min-w-[80px]">{product.stocks}</td>
+                {/* <td className="min-w-[80px]">{product.stocks}</td>
                 <td className="min-w-[100px]">
                   {product.stocks <= 5 ? (
                     <span className="bg-yellow-700 text-xs px-2 py-1 rounded-full">Low Stock</span>
                   ) : (
                     <span className="bg-green-700 text-xs px-2 py-1 rounded-full">Active</span>
                   )}
-                </td>
+                </td> */}
                 <td className="text-right pr-6 min-w-[120px]">
                   <button
                     className="text-yellow-400 mr-4"

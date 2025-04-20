@@ -40,7 +40,7 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
         )}
 
         {isAuthenticated ? (
-          <span onClick={handleLogout} className="cursor-pointer hover:text-yellow-500">Logout</span>
+          <span onClick={handleLogout} className="cursor-pointer hover:text-red-400">Logout</span>
         ) : (
           <NavLink className="hover:text-yellow-500" to="/login">Admin</NavLink>
         )}
