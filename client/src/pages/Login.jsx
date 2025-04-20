@@ -22,6 +22,7 @@ const Login = () => {
       } else {
         setError("Invalid username or password");
       }
+    // eslint-disable-next-line no-unused-vars
     } catch (err) {
       setError("Server error. Please try again.");
     }

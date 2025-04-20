@@ -117,9 +117,7 @@ const CheckoutPage = () => {
           },
           body: JSON.stringify(orderDetails),
         });
-        console.log("response:", response);
         const data = await response.json();
-        console.log("data:", data);
         console.log("Order placed successfully:", data);
       } catch (error) {
         console.error("Error placing order:", error);

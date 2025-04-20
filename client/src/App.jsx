@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Home from './pages/Home'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
@@ -14,6 +14,12 @@ import ProductDetail from './pages/ProductDetail'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/visits`, {
+      method: 'POST'
+    }).catch(err => console.error("Failed to track visit:", err));
+  }, []);
+
 
   return (
     <div  onClick={() => menuOpen && setMenuOpen(false)} className='bg-black h-fit w-full'>

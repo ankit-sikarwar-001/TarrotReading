@@ -9,9 +9,13 @@ const cloudinary = require('./config/cloudinary.js');
 const upload = require('./config/multer.js');
 const app = express();
 const PORT = process.env.PORT || 3001; // Port for the server
+const visitorRoutes = require("./Routes/Visitor.js");
+
+
 
 app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON
+app.use("/api/visits", visitorRoutes); // for visitors
 
 mongoose.connect(`mongodb+srv://${process.env.name}:${process.env.password}@products.j2edltx.mongodb.net/ShopItems`);
 
