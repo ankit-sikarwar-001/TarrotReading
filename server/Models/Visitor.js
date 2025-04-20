@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+
 
 const visitorSchema = new mongoose.Schema({
   date: {
@@ -12,4 +13,4 @@ const visitorSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Visitor", visitorSchema);
+module.exports = mongoose.model("Visitor", visitorSchema);
