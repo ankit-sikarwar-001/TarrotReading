@@ -237,6 +237,7 @@ const confirmAction = (callback) => {
                     onClick={() => {
                       setEditingProduct(product);
                       setShowForm(true);
+                      scrollTo(0,300);
                     }}
                   >
                     ✏️
