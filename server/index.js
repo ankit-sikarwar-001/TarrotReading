@@ -10,6 +10,7 @@ const upload = require('./config/multer.js');
 const app = express();
 const PORT = process.env.PORT || 4000; // Port for the server
 const visitorRoutes = require("./Routes/Visitor.js");
+const { createPaymentOrder, verifyPayment } = require("./PaymentController.js");
 
 
 
@@ -28,6 +29,8 @@ const connectDB = async () => {
   }
 };
 connectDB();
+
+
 
 // POST API to receive form data
 app.post("/api/products", upload.single("image"), async (req, res) => {
@@ -206,6 +209,9 @@ app.get("/", (req, res)=> {
 
 //  ordeer api
 
+
+
+
 // post order
 app.post("/api/orders", async (req, res) => {
   try {
@@ -231,7 +237,16 @@ app.get("/api/orders", async (req, res) => {
 
 
 
+
+
+
+app.post('/api/pay/create-order', createPaymentOrder)
+app.post('/api/pay/verify-payment',  verifyPayment )
+
+
 // Server Start
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`);
 });
+
+

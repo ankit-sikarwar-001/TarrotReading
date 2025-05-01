@@ -31,7 +31,7 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
 
       {/* Desktop Links */}
       <div className='md:flex hidden gap-10 text-xl font-medium'>
-        <NavLink className="hover:text-yellow-500" to="/">Home</NavLink>
+        <NavLink className="hover:text-yellow-500" onClick={ scrollTo(0, 0)} to="/">Home</NavLink>
         <NavLink className="hover:text-yellow-500" to="/shop">Shop</NavLink>
         <NavLink className="hover:text-yellow-500" to="/cart">🛒 Cart</NavLink>
 

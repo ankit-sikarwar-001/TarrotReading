@@ -1,130 +1,146 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../appContext/AppContext';
-import toast from 'react-hot-toast';
-
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../appContext/AppContext";
+import toast from "react-hot-toast";
+import { handlePayment } from "../utils/PaymentService";
 const CheckoutPage = () => {
-
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const { allitems, totalCartItems, setTotalCartItems } =
+    useContext(AppContext);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalbuy, setTotalBuy] = useState(0);
 
-  const { allitems, totalCartItems, setTotalCartItems } = useContext(AppContext)
-  const [totalPrice, setTotalPrice] = useState(0)
-  const [totalbuy, setTotalBuy] = useState(0)
+  const [ pay, setPay ] = useState(false)
 
   useEffect(() => {
     const total = totalCartItems.reduce((sum, product) => {
-      const item = allitems.find(i => i._id === product._id)
-      setTotalBuy(prev => prev + product.quantity)
-      return sum + (item?.price || 0) * (product?.quantity || 1)
-    }, 0)
-    setTotalPrice(total)
-  }, [totalCartItems, allitems])
+      const item = allitems.find((i) => i._id === product._id);
+      setTotalBuy((prev) => prev + product.quantity);
+      return sum + (item?.price || 0) * (product?.quantity || 1);
+    }, 0);
+    setTotalPrice(total);
+  }, [totalCartItems, allitems]);
 
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [shippingDetails, setShippingDetails] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
+    firstName: "",
+    lastName: "",
+    email: "",
   });
 
+  const placeOrder = async (e) => {
+    try {
+      e.preventDefault();
+      setPay(true)
+      // Check for empty fields
+      const { firstName, lastName, email } = shippingDetails;
+      if (!firstName || !lastName || !email) {
+        toast.error("Please fill out all the fields before placing the order.");
+        return;
+      }
 
-  const placeOrder = (e) => {
-    e.preventDefault();
+      const paymentData = await handlePayment(backendUrl, totalPrice);
+     
 
-    // Check for empty fields
-    const { firstName, lastName, email } = shippingDetails;
-    if (!firstName || !lastName || !email) {
-      toast.error("Please fill out all the fields before placing the order.");
-      return;
-    }
+    
+    if (paymentData.success) {
+      const orderData = {
+        totalPrice: totalPrice,
+        totalbuy: totalbuy,
+        products: totalCartItems.map((item) => ({
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+        message: `Hi, I want to place an order. My name is ${firstName} ${lastName} and my email is ${email}`,
+      };
 
+      // Convert orderData to a string message
+      let message = `${orderData.message}\n\nOrder Summary:\n`;
 
-    // Show success message
-    toast.success("Order placed successfully!");
+      orderData.products.forEach((item, index) => {
+        message += `${index + 1}. ${item.title} - ₹${item.price} x ${
+          item.quantity
+        }\n`;
+      });
 
-    // Clear cart
-    localStorage.removeItem("tarotCartItems");
-    setTotalCartItems([]);
+      message += `\nTotal Buy: ${orderData.totalbuy}\nTotal Price: ₹${orderData.totalPrice}`;
 
+      const whatsappLink = `https://wa.me/91${
+        import.meta.env.VITE_MO
+      }?text=${encodeURIComponent(message)}`;
 
-    const orderData = {
-      totalPrice: totalPrice,
-      totalbuy: totalbuy,
-      products: totalCartItems.map(item => ({
-        title: item.title,
-        price: item.price,
-        quantity: item.quantity
-      })),
-      message: `Hi, I want to place an order. My name is ${firstName} ${lastName} and my email is ${email}`,
-    };
+      // Navigate to home
+      navigate("/");
 
-    // Convert orderData to a string message
-    let message = `${orderData.message}\n\nOrder Summary:\n`;
+      // orders database
+      const orderDetails = {
+        totalPrice: totalPrice,
+        totalorders: totalbuy,
+      };
 
-    orderData.products.forEach((item, index) => {
-      message += `${index + 1}. ${item.title} - ₹${item.price} x ${item.quantity}\n`;
-    });
+      // Send order details to the server
+      const sendOrderToServer = async () => {
+        try {
+          const response = await fetch(`${backendUrl}/api/orders`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderDetails),
+          });
+          const data = await response.json();
+          console.log("Order placed successfully:", data);
+        } catch (error) {
+          console.error("Error placing order:", error);
+        }
+      };
+      // Clear cart
+      localStorage.removeItem("tarotCartItems");
+      setTotalCartItems([]);
 
-    message += `\nTotal Buy: ${orderData.totalbuy}\nTotal Price: ₹${orderData.totalPrice}`;
-
-    const whatsappLink = `https://wa.me/91${import.meta.env.VITE_MO}?text=${encodeURIComponent(message)}`;
-
-    // Example: redirect to WhatsApp
-    window.open(whatsappLink, "_blank");
-
-
-    // Navigate to home
-    navigate("/");
-
-
-    //   payment process
-
-
-
-    // orders database 
-    const orderDetails = {
-      totalPrice: totalPrice,
-      totalorders: totalbuy,
-    };
-
-
-
-    // Send order details to the server
-    const sendOrderToServer = async () => {
+      sendOrderToServer(); // Call the function to send order details to the server
+      // 5. Open with 3 fallback methods
       try {
-        const response = await fetch(`${backendUrl}/api/orders`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(orderDetails),
-        });
-        const data = await response.json();
-        console.log("Order placed successfully:", data);
-      } catch (error) {
-        console.error("Error placing order:", error);
+        // Method 1: window.open
+        const newWindow = window.open(whatsappLink, "_blank");
+        // Method 2: If blocked, use location.href
+        if (!newWindow || newWindow.closed) {
+          window.location = whatsappLink;
+        }
+      } catch (e) {
+        // Method 3: Create and click hidden link
+        const a = document.createElement("a");
+        a.href = whatsappLink;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => document.body.removeChild(a), 100);
       }
     }
-
-
-
-
-    sendOrderToServer(); // Call the function to send order details to the server
+    } catch (error) {
+      setPay(false)
+      return toast.error(error.message);
+    }finally{
+      setPay(false)
+    }
   };
-
-
 
   const handleChange = (e) => {
     setShippingDetails({
       ...shippingDetails,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   return (
     <div className="container mx-auto p-6 ">
-      <h1 className='text-white text-3xl font-bold text-center mb-10'> <span className="text-[#D4AF37]">✧</span> Secure Checkout <span className="text-[#D4AF37]">✧</span> </h1>
+      <h1 className="text-white text-3xl font-bold text-center mb-10">
+        {" "}
+        <span className="text-[#D4AF37]">✧</span> Secure Checkout{" "}
+        <span className="text-[#D4AF37]">✧</span>{" "}
+      </h1>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Left side: Shipping Form */}
         <div className="lg:w-2/3 p-6 bg-white shadow-md rounded-lg">
@@ -133,7 +149,12 @@ const CheckoutPage = () => {
           <form>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium">First Name</label>
+                <label
+                  htmlFor="firstName"
+                  className="block text-sm font-medium"
+                >
+                  First Name
+                </label>
                 <input
                   type="text"
                   id="firstName"
@@ -145,7 +166,9 @@ const CheckoutPage = () => {
                 />
               </div>
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium">Last Name</label>
+                <label htmlFor="lastName" className="block text-sm font-medium">
+                  Last Name
+                </label>
                 <input
                   type="text"
                   id="lastName"
@@ -158,7 +181,9 @@ const CheckoutPage = () => {
               </div>
             </div>
             <div className="mb-6">
-              <label htmlFor="email" className="block text-sm font-medium">Email Address</label>
+              <label htmlFor="email" className="block text-sm font-medium">
+                Email Address
+              </label>
               <input
                 type="email"
                 id="email"
@@ -170,30 +195,29 @@ const CheckoutPage = () => {
               />
             </div>
           </form>
-
         </div>
 
         {/* Right side: Order Summary */}
         <div className="lg:w-1/3 p-6 bg-white shadow-md rounded-lg">
           <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
           <div className="mb-4">
-
             <div className="flex justify-between font-bold mb-6">
               <p>Total Price:</p>
-              <p>${totalPrice}</p>
+              <p>₹{totalPrice}</p>
             </div>
             <button
               onClick={placeOrder}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md shadow transition duration-200"
+              className={`w-full bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md cursor-pointer shadow transition duration-200 ${pay ? "opacity-50 cursor-not-allowed" : ""  
+              }`}
+            disabled={pay} // Disable the button when pay is true
             >
-              Place Order
+             {pay ? "Placing Order..." : "Place Order"} 
             </button>
-
           </div>
 
           <button
             onClick={() => navigate("/cart")}
-            className="text-center px-6 py-3 bg-gray-300 rounded-md"
+            className="text-center px-6 py-3 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition duration-200 "
           >
             Back to Cart
           </button>

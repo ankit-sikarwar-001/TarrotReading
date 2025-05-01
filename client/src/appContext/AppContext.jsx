@@ -49,8 +49,7 @@ export const AppContextProvider = ({ children }) => {
       const response = await fetch(`${backendUrl}/api/orders`, {
         method: "GET"
       });
-      console.log("response app:", response); // Log the response object
-      const data = await response.json();
+         const data = await response.json();
       const totalOrders = data.reduce((sum, item) => sum + item.totalorders, 0);
       const totalPrice = data.reduce((sum, item) => sum + item.totalPrice, 0);
       setTotalOrders(totalOrders)

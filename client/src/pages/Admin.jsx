@@ -154,28 +154,38 @@ const confirmAction = (callback) => {
   return (
     <div className="min-h-screen bg-black text-white p-6 relative z-0">
       {/* Header */}
-      
+
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-yellow-400">✨ Admin Dashboard ✨</h1>
-        <p className="text-sm text-gray-400 mt-2">Manage your mystic products and services</p>
+        <h1 className="text-3xl font-bold text-yellow-400">
+          ✨ Admin Dashboard ✨
+        </h1>
+        <p className="text-sm text-gray-400 mt-2">
+          Manage your mystic products and services
+        </p>
       </div>
 
       {/* Dashboard Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-[#2D223D] rounded-lg p-6 relative">
-          <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">Last 30 days</span>
+          <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">
+            Last 30 days
+          </span>
           <p className="text-sm text-gray-300">Total Orders</p>
           <h2 className="text-3xl font-semibold mt-2">{totalOrders}</h2>
           <p className="text-green-400 text-sm mt-1">↑ 12%</p>
         </div>
         <div className="bg-[#2D223D] rounded-lg p-6 relative">
-          <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">Last 30 days</span>
+          <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">
+            Last 30 days
+          </span>
           <p className="text-sm text-gray-300">Revenue</p>
           <h2 className="text-3xl font-semibold mt-2">{totalPrice}</h2>
           <p className="text-green-400 text-sm mt-1">↑ 8%</p>
         </div>
         <div className="bg-[#2D223D] rounded-lg p-6 relative">
-          <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">Last 7 days</span>
+          <span className="absolute top-2 right-2 bg-yellow-700 text-xs px-2 py-1 rounded-full">
+            Last 7 days
+          </span>
           <p className="text-sm text-gray-300 mb-2">Visitors</p>
           <ResponsiveContainer width="100%" height={100}>
             <LineChart data={visitData}>
@@ -183,11 +193,15 @@ const confirmAction = (callback) => {
               <XAxis dataKey="date" stroke="#ccc" fontSize={12} />
               <YAxis stroke="#ccc" fontSize={12} />
               <Tooltip />
-              <Line type="monotone" dataKey="count" stroke="#FACC15" strokeWidth={2} />
+              <Line
+                type="monotone"
+                dataKey="count"
+                stroke="#FACC15"
+                strokeWidth={2}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
-
       </div>
 
       {/* Top Bar */}
@@ -209,15 +223,13 @@ const confirmAction = (callback) => {
         </div> */}
 
         {/* Right Section: Add Button */}
-        <button 
-
-          onClick={handleAddProduct }
+        <button
+          onClick={handleAddProduct}
           className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-md w-full sm:w-auto"
         >
           Add Product
         </button>
       </div>
-
 
       {/* Product Form */}
       {showForm && (
@@ -240,16 +252,27 @@ const confirmAction = (callback) => {
           </thead>
           <tbody>
             {products.map((product) => (
-              <tr key={product._id} className="border-b border-gray-700 hover:bg-gray-900 transition">
+              <tr
+                key={product._id}
+                className="border-b border-gray-700 hover:bg-gray-900 transition"
+              >
                 <td className="p-4 flex items-center gap-3 min-w-[200px]">
-                  <img src={product.image || 'https://via.placeholder.com/40'} alt={product.name} className="w-10 h-10 rounded" />
+                  <img
+                    src={product.image || "https://via.placeholder.com/40"}
+                    alt={product.name}
+                    className="w-10 h-10 rounded"
+                  />
                   <div>
                     <p>{product.name}</p>
-                    <span className="text-gray-200 text-xs">SKU: {product.title || 'N/A'}</span>
+                    <span className="text-gray-200 text-xs">
+                      SKU: {product.title || "N/A"}
+                    </span>
                   </div>
                 </td>
                 <td className="min-w-[150px]">{product.description}</td>
-                <td className="text-yellow-400 min-w-[100px]">${parseFloat(product.price).toFixed(2)}</td>
+                <td className="text-yellow-400 min-w-[100px]">
+                  ₹{parseFloat(product.price).toFixed(2)}
+                </td>
                 {/* <td className="min-w-[80px]">{product.stocks}</td>
                 <td className="min-w-[100px]">
                   {product.stocks <= 5 ? (
@@ -264,7 +287,7 @@ const confirmAction = (callback) => {
                     onClick={() => {
                       setEditingProduct(product);
                       setShowForm(true);
-                      scrollTo(0,300);
+                      scrollTo(0, 300);
                     }}
                   >
                     ✏️
@@ -281,9 +304,8 @@ const confirmAction = (callback) => {
           </tbody>
         </table>
       </div>
-
     </div>
-  )
+  );
 }
 
 export default Admin
