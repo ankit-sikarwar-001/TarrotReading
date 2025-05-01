@@ -11,9 +11,11 @@ const app = express();
 const PORT = process.env.PORT || 4000; // Port for the server
 const visitorRoutes = require("./Routes/Visitor.js");
 const { createPaymentOrder, verifyPayment } = require("./PaymentController.js");
+const path = require("path");
 
-
-
+const _dirname = path.dirname("")
+const buildpath = path.join(_dirname,"../client/dist");
+app.use(express.static(buildpath));
 app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON
 app.use("/api/visits", visitorRoutes); // for visitors
