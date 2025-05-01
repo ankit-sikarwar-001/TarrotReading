@@ -11,6 +11,7 @@ import CheckoutPage from './pages/CheckOut'
 import ProductForm from './pages/ProductForm'
 import ProtectedRoute from './components/ProtectedRoute';
 import ProductDetail from './pages/ProductDetail'
+import NotFound from './pages/NotFound'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -40,6 +41,7 @@ const App = () => {
         />
         <Route path='/checkout' element={<CheckoutPage />} />
         <Route path="/add-product" element={<ProductForm />} />
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
 

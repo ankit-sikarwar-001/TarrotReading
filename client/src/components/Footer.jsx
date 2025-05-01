@@ -46,23 +46,7 @@ const Footer = () => {
           <p>Terms of Service</p>
         </div>
 
-        {/* Newsletter Section */}
-        <div className="space-y-3 max-w-sm">
-          <h2 className="text-lg font-semibold mb-1">Newsletter</h2>
-          <p className="text-sm">
-            Subscribe to receive updates, exclusive offers, and mystical insights.
-          </p>
-          <div className="flex flex-col lg:flex-row gap-2">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            />
-            <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">
-              Subscribe
-            </button>
-          </div>
-        </div>
+      
       </div>
 
       <hr className="border-white opacity-20" />

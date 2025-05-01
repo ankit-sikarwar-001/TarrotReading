@@ -36,7 +36,7 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
     const navigate = useNavigate();
 
     const handleAddProduct = () => {
-        toast.success("Product Added Successfully")
+        toast.success(isEditing ?( "Product Updated Successfully") :( "Product Added Successfully"))
         navigate('/admin');
     };
 
@@ -135,7 +135,7 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
                <input required name="reviews" value={formData.reviews} onChange={handleChange} placeholder="Reviews" type="number" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
                 <input name="tags" value={formData.tags} onChange={handleChange} placeholder="Tags (comma separated)" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
                 <input
-                    required
+                    required= {!isEditing}
                     type="file"
                     name="image"
                     accept="image/*"

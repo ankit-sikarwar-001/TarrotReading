@@ -69,41 +69,64 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
     }, [condi, allitems, sortOption]);
 
     return (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 container mx-auto px-4 pb-10">
-            {filteredItems.map((product,index) => (
-                <div onClick={(e) => productDetail(e,product._id)} key={index} className="bg-[#1f1f1f] rounded-xl overflow-hidden shadow-md border border-[#2A2A2A]">
-                    {/* Image */}
-                    <div className="relative">
-                        <img src={product.image} alt={product.title} className="w-full h-48 object-cover" />
-                        <div className="absolute top-2 right-2 flex gap-1">
-                            {product.tags.includes("Best") && (
-                                <span className="bg-yellow-400 text-xs font-bold text-black px-2 py-0.5 rounded">BEST</span>
-                            )}
-                            {product.tags.includes("New") && (
-                                <span className="bg-purple-600 text-xs font-bold text-white px-2 py-0.5 rounded">NEW</span>
-                            )}
-                        </div>
-                    </div>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 container mx-auto px-4 pb-10">
+        {filteredItems.map((product, index) => (
+          <div
+            onClick={(e) => productDetail(e, product._id)}
+            key={index}
+            className="bg-[#1f1f1f] rounded-xl overflow-hidden shadow-md border border-[#2A2A2A]"
+          >
+            {/* Image */}
+            <div className="relative">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="absolute top-2 right-2 flex gap-1">
+                {product.tags.includes("Best") && (
+                  <span className="bg-yellow-400 text-xs font-bold text-black px-2 py-0.5 rounded">
+                    BEST
+                  </span>
+                )}
+                {product.tags.includes("New") && (
+                  <span className="bg-purple-600 text-xs font-bold text-white px-2 py-0.5 rounded">
+                    NEW
+                  </span>
+                )}
+              </div>
+            </div>
 
-                    {/* Content */}
-                    <div className="p-4">
-                        <h3 className="text-lg font-semibold text-white">{product.title}</h3>
-                        <div className="flex items-center text-sm text-yellow-400 mt-1 mb-2">
-                            <span>{renderStars(product.rating)}</span>
-                            <span className="ml-2 text-gray-300 text-xs">({product.reviews} reviews )</span>
-                        </div>
-                        <p className="text-sm text-gray-400 mb-3 line-clamp-3">{product.description}</p>
+            {/* Content */}
+            <div className="p-4">
+              <h3 className="text-lg font-semibold text-white">
+                {product.title}
+              </h3>
+              <div className="flex items-center text-sm text-yellow-400 mt-1 mb-2">
+                <span>{renderStars(product.rating)}</span>
+                <span className="ml-2 text-gray-300 text-xs">
+                  ({product.reviews} reviews )
+                </span>
+              </div>
+              <p className="text-sm text-gray-400 mb-3 line-clamp-3">
+                {product.description}
+              </p>
 
-                        <div className="flex justify-between items-center">
-                            <span className="text-yellow-400 font-bold text-base">${product.price}</span>
-                            <button onClick={(e) => handleToCart(e, product._id)} className="bg-purple-700 text-white px-3 py-1.5 text-sm rounded-md hover:bg-purple-800">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            ))}
-        </div>
+              <div className="flex justify-between items-center">
+                <span className="text-yellow-400 font-bold text-base">
+                  ₹{product.price}
+                </span> 
+                <button
+                  onClick={(e) => handleToCart(e, product._id)}
+                  className="bg-purple-700 text-white px-3 py-1.5 text-sm rounded-md hover:bg-purple-800"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     );
 };
 

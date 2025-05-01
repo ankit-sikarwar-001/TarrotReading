@@ -70,7 +70,6 @@ const Home = () => {
     const { name, value } = e.target;
     setUser(prev => ({ ...prev, [name]: value }));
   };
-  console.log(user);
 
   return (
     <>

@@ -12,8 +12,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     try {
-      const response = await axios.get("http://localhost:3001/api/login");
+      const response = await axios.get(`${backendUrl}/api/login`);
       const adminData = response.data[0];
 
       if (adminData.admin === name && adminData.password === password) {
