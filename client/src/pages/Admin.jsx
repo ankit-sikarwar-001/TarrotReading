@@ -54,29 +54,6 @@ const { totalOrders, totalPrice, } = useContext(AppContext)
     }
   };
 
-  // delete icon 
-  // const handleDeleteProduct = async (productId) => {
-  //   const confirmDelete = window.confirm("Are you sure you want to delete this product?");
-  //   if (!confirmDelete) return;
-
-  //   try {
-  //     const res = await fetch(`http://localhost:3001/api/products/${productId}`, {
-  //       method: 'DELETE',
-  //     });
-
-  //     if (res.ok) {
-  //       fetchProducts(); // Refresh product list
-  //     } else {
-  //       console.error('Failed to delete product');
-  //     }
-  //   } catch (err) {
-  //     console.error('Error deleting product:', err);
-  //   }
-  // };
-
-
-// Toast-based confirmation
-// delete icon
 const confirmAction = (callback) => {
   toast((t) => (
     <div className="text-white w-full h-full">

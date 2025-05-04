@@ -13,7 +13,8 @@ const Home = () => {
   const { allitems } = useContext(AppContext)
   const [user, setUser] = useState({
     name: "",
-    age: ""
+    age: "",
+    // contact : ""
   })
 
   // timecard for shuffle card 
@@ -50,14 +51,19 @@ const Home = () => {
 
   const handleShuffle = () => {
     const { name, age } = user;
-    if (!name || !age) {
-      toast.error("Please fill out all the fields before placing the order.");
+    if (!name || !age ) {
+      toast.error("Please fill out all the fields.");
       return;
     }
+    // if(contact.length != 10 ){
+    //   toast.error("Please enter your number properly.");
+    //   return;
+    // }
     setIsShuffling(true);
     setUser({
       name: "",
-      age: ""
+      age: "",
+      // contact: ""
     })
     setTimeout(() => {
       const selected = [...tarotDeck].sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -104,7 +110,8 @@ const Home = () => {
             <div>
               <form className="mt-4 space-y-4 bg-[#1f1f1f] p-6 rounded-lg" >
                 <input required name="name" value={user.name} onChange={handleChange} placeholder="name" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
-                <input required name="age" value={user.age} onChange={handleChange} placeholder="age" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
+                <input required type='number' name="age" value={user.age} onChange={handleChange} placeholder="age" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
+                {/* <input type="number" required name="contact" value={user.contact} onChange={handleChange} placeholder="Phone No." className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" /> */}
                  </form>
             </div>
             <button onClick={handleShuffle} className='bg-purple-400 px-7 py-2 mt-7 rounded-xl cursor-pointer'>
