@@ -60,6 +60,10 @@ const Footer = () => {
 
       <div className="py-4 px-6 md:px-20 text-center text-sm bg-blue-700">
         <p>© 2025 Mystic Tarot. All rights reserved.</p>
+        <p>
+          Developed by <a href="https://ankitxwarportfolio.netlify.app/" target="_blank" rel="noopener noreferrer" className=" hover:text-yellow-300">Ankit Singh</a> &{' '}
+          <a href="https://ajaygodara-portfolio.vercel.app" target="_blank" rel="noopener noreferrer" className=" hover:text-yellow-300">Ajay Godara</a>
+        </p>
       </div>
     </footer>
   );
