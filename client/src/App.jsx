@@ -12,6 +12,10 @@ import ProductForm from './pages/ProductForm'
 import ProtectedRoute from './components/ProtectedRoute';
 import ProductDetail from './pages/ProductDetail'
 import NotFound from './pages/NotFound'
+import RefundAndCancellation from './pages/RefundAndCancellation'
+import TermsAndConditions from './pages/TermsAndConditions'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import ServicePolicyAndReturns from './pages/ServicePolicyAndReturns'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -42,6 +46,10 @@ const App = () => {
         <Route path='/checkout' element={<CheckoutPage />} />
         <Route path="/add-product" element={<ProductForm />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/refund-and-cancellation" element={<RefundAndCancellation />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/service-policy-and-returns" element={<ServicePolicyAndReturns />} />
 
       </Routes>
 

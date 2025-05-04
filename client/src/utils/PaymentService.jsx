@@ -28,7 +28,7 @@ export const handlePayment = (backendUrl, totalPrice) => {
     try {
       const { data } = await axios.post(`${backendUrl}/api/pay/create-order`, {
         amount: totalPrice * 100,
-        currency: "INR",
+        currency: "USD",
       });
 
       const options = {
@@ -61,9 +61,9 @@ export const handlePayment = (backendUrl, totalPrice) => {
           }
         },
         prefill: {
-          name: "John Doe",
-          email: "johndoe@example.com",
-          contact: "9876543210",
+          name: "Sukhdev",
+          email: "ssingh66907@gmail.com",
+          contact: "9467270938",
         },
         theme: { color: "#3399cc" },
         modal: {

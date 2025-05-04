@@ -39,6 +39,13 @@ const CheckoutPage = () => {
         return;
       }
 
+      // email validation 
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        toast.error("Please enter a valid email address.");
+        return;
+      }
+
       const paymentData = await handlePayment(backendUrl, totalPrice);
      
 
@@ -59,12 +66,12 @@ const CheckoutPage = () => {
       let message = `${orderData.message}\n\nOrder Summary:\n`;
 
       orderData.products.forEach((item, index) => {
-        message += `${index + 1}. ${item.title} - ₹${item.price} x ${
+        message += `${index + 1}. ${item.title} - $${item.price} x ${
           item.quantity
         }\n`;
       });
 
-      message += `\nTotal Buy: ${orderData.totalbuy}\nTotal Price: ₹${orderData.totalPrice}`;
+      message += `\nTotal Buy: ${orderData.totalbuy}\nTotal Price: $${orderData.totalPrice}`;
 
       const whatsappLink = `https://wa.me/91${
         import.meta.env.VITE_MO
@@ -203,7 +210,7 @@ const CheckoutPage = () => {
           <div className="mb-4">
             <div className="flex justify-between font-bold mb-6">
               <p>Total Price:</p>
-              <p>₹{totalPrice}</p>
+              <p>${totalPrice}</p>
             </div>
             <button
               onClick={placeOrder}

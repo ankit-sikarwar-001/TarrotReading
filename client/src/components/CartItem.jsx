@@ -58,7 +58,7 @@ const CartItem = ({ productId, quantity }) => {
         {/* Price & Quantity */}
         <div className="flex flex-col sm:items-end gap-2">
           <p className="font-semibold text-gray-700">
-            ₹{(cartItem.price * quantity).toFixed(2)}
+            ${(cartItem.price * quantity).toFixed(2)}
           </p>
 
           <div className="flex items-center gap-2">

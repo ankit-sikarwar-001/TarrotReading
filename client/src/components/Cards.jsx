@@ -114,7 +114,7 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
 
               <div className="flex justify-between items-center">
                 <span className="text-yellow-400 font-bold text-base">
-                  ₹{product.price}
+                  ${product.price}
                 </span> 
                 <button
                   onClick={(e) => handleToCart(e, product._id)}
