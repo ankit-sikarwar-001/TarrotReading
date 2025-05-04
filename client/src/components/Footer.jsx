@@ -31,16 +31,12 @@ const Footer = () => {
           <h2 className="text-lg font-semibold mb-1">Shop</h2>
           <p>Tarot Decks</p>
           <p>Crystals</p>
-          <p>Herbs & Incense</p>
           <p>Books</p>
-          <p>Gift Cards</p>
         </div>
 
         {/* Information Section */}
         <div className="space-y-2">
           <h2 className="text-lg font-semibold mb-1">Information</h2>
-          <p>About Us</p>
-          <p>Tarot Reading Guide</p>
           <p>Shipping and Returns</p>
           <p>Privacy Policy</p>
           <p>Terms of Service</p>
