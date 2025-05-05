@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../appContext/AppContext";
@@ -148,10 +149,26 @@ const CheckoutPage = () => {
         <span className="text-[#D4AF37]">✧</span> Secure Checkout{" "}
         <span className="text-[#D4AF37]">✧</span>{" "}
       </h1>
+        <div className="lg:w-full p-6 mb-4 bg-[#1a1a1a] shadow-md rounded-lg border border-yellow-500">
+          <h2 className="text-2xl font-bold text-yellow-500 mb-4">Disclaimer</h2>
+          <p className="text-white text-lg leading-relaxed">
+            <span className="font-semibold text-yellow-400">Note:</span> We do not deliver any physical products. Once you complete your purchase, you will be redirected to WhatsApp where our expert will assist you further with your Tarot card reading session.
+          </p>
+          <p className="mt-4 text-white">
+            For any concerns or queries, feel free to contact us directly at{' '}
+            <a
+              href="mailto:ssingh66907@gmail.com"
+              className="text-yellow-400 underline hover:text-yellow-300"
+              >
+              ssingh66907@gmail.com
+            </a>{'.'}
+            
+          </p>
+        </div>
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Left side: Shipping Form */}
+              {/* Left side: Shipping Form */}
         <div className="lg:w-2/3 p-6 bg-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-semibold mb-4">Shipping Information</h2>
+          {/* <h2 className="text-2xl font-semibold mb-4">Shipping Information</h2> */}
 
           <form>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
@@ -202,7 +219,9 @@ const CheckoutPage = () => {
               />
             </div>
           </form>
-        </div>
+        </div> 
+
+
 
         {/* Right side: Order Summary */}
         <div className="lg:w-1/3 p-6 bg-white shadow-md rounded-lg">

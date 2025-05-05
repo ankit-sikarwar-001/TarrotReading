@@ -11,8 +11,8 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     const [formData, setFormData] = useState({
-        rating: editingProduct?.rating || '',
-        reviews: editingProduct?.reviews || '',
+        // rating: editingProduct?.rating || '',
+        // reviews: editingProduct?.reviews || '',
         tags: editingProduct?.tags || '',
         title: editingProduct?.title || '',
         description: editingProduct?.description || '',
@@ -131,8 +131,8 @@ const ProductForm = ({ onProductAdded, editingProduct }) => {
                 <input required name="title" value={formData.title} onChange={handleChange} placeholder="Title" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
                 <input required name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
                 <input required name="price" value={formData.price} onChange={handleChange} placeholder="Price" type="number" step="0.01" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
-                <input required name="rating" value={formData.rating} onChange={handleChange} placeholder="Rating" type="number" step="0.1" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
-               <input required name="reviews" value={formData.reviews} onChange={handleChange} placeholder="Reviews" type="number" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
+                {/* <input required name="rating" value={formData.rating} onChange={handleChange} placeholder="Rating" type="number" step="0.1" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
+               <input required name="reviews" value={formData.reviews} onChange={handleChange} placeholder="Reviews" type="number" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" /> */}
                 <input name="tags" value={formData.tags} onChange={handleChange} placeholder="Tags (comma separated)" className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white" />
                 <input
                     required= {!isEditing}

@@ -105,7 +105,6 @@ useEffect(() => {
       }
     } catch (error) {
       toast.error("Error submitting review. Please try again later.");
-      toast.error(data.message);
       console.error("Error submitting review:", error);
     } finally {
       setReviews({ name: "", comment: "" }); // Reset the form fields
@@ -168,7 +167,7 @@ useEffect(() => {
           </button>
 
           {/* Rating & Reviews */}
-          {product.rating && product.reviews && (
+          {/* {product.rating && product.reviews && (
             <div className="flex items-center gap-3 mt-2">
               <div className="flex items-center text-yellow-400 text-lg">
                 {[...Array(5)].map((_, index) => (
@@ -181,7 +180,7 @@ useEffect(() => {
                 {product.rating.toFixed(1)} ( {product.reviews} Reviews )
               </p>
             </div>
-          )}
+          )} */}
 
           {/* Description */}
           <p className="text-gray-300 leading-relaxed text-lg">

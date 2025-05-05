@@ -5,13 +5,13 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
     const { allitems, totalCartItems} = useContext(AppContext)
     const [filteredItems, setFilteredItems] = useState([]);
     const navigate = useNavigate()
-    const renderStars = (rating) => {
-        const fullStars = Math.round(rating);
-        const hasHalf = rating % 1 !== 0;
-        let stars = '★'.repeat(fullStars);
-        if (hasHalf) stars += '☆';
-        return stars.padEnd(5, '☆'); // Always 5 stars
-    };
+    // const renderStars = (rating) => {
+    //     const fullStars = Math.round(rating);
+    //     const hasHalf = rating % 1 !== 0;
+    //     let stars = '★'.repeat(fullStars);
+    //     if (hasHalf) stars += '☆';
+    //     return stars.padEnd(5, '☆'); // Always 5 stars
+    // };
 
     
     const productDetail = (e, id) => {
@@ -102,12 +102,12 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
               <h3 className="text-lg font-semibold text-white">
                 {product.title}
               </h3>
-              <div className="flex items-center text-sm text-yellow-400 mt-1 mb-2">
+              {/* <div className="flex items-center text-sm text-yellow-400 mt-1 mb-2">
                 <span>{renderStars(product.rating)}</span>
                 <span className="ml-2 text-gray-300 text-xs">
                   ({product.reviews} reviews )
                 </span>
-              </div>
+              </div> */}
               <p className="text-sm text-gray-400 mb-3 line-clamp-3">
                 {product.description}
               </p>
