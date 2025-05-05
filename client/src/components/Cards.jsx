@@ -120,7 +120,7 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
                   onClick={(e) => handleToCart(e, product._id)}
                   className="bg-purple-700 text-white px-3 py-1.5 text-sm rounded-md hover:bg-purple-800"
                 >
-                  Add to Cart
+                  Buy Now
                 </button>
               </div>
             </div>

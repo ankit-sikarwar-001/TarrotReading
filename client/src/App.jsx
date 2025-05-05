@@ -15,6 +15,8 @@ import NotFound from './pages/NotFound'
 import RefundAndCancellation from './pages/RefundAndCancellation'
 import TermsAndConditions from './pages/TermsAndConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import About from './pages/About'
+import Contact from './pages/Contact'
 import ServicePolicyAndReturns from './pages/ServicePolicyAndReturns'
 
 const App = () => {
@@ -34,6 +36,8 @@ const App = () => {
         <Route path='/shop' element={<Shop />} />
         <Route path='/product/:id' element={<ProductDetail />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contact' element={<Contact />} />
         <Route path='/login' element={<Login />} />
         <Route
           path="/admin"

@@ -75,7 +75,7 @@ const Cart = () => {
           <div className="space-y-3 text-gray-700">
             <div className="flex justify-between">
               <span>Total price: </span>
-              <span>₹{totalPrice.toFixed(2)}</span>
+              <span>${totalPrice.toFixed(2)}</span>
             </div>
             {/* <div className="flex justify-between">
               <span>Tax (5%)</span>
