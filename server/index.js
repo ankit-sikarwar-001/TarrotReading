@@ -241,10 +241,13 @@ app.get("/api/orders", async (req, res) => {
 
 
 
-
+// payment api
 app.post('/api/pay/create-order', createPaymentOrder)
 app.post('/api/pay/verify-payment',  verifyPayment )
 
+// review api
+const reviewRoutes = require("./Routes/Review.js");
+app.use("/api/reviews", reviewRoutes); // for reviews
 
 // Server Start
 app.listen(PORT, () => {
