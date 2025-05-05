@@ -35,7 +35,7 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
         <NavLink className="hover:text-yellow-500" to="/shop">Shop</NavLink>
         {/* <NavLink className="hover:text-yellow-500" to="/cart">🛒 Cart</NavLink> */}
         <NavLink className="hover:text-yellow-500" to="/about">About</NavLink>
-        <NavLink className="hover:text-yellow-500" to="/contact">Contact</NavLink>
+        {/* <NavLink className="hover:text-yellow-500" to="/contact">Contact</NavLink> */}
 
         {isAuthenticated && (
           <NavLink className="hover:text-yellow-500" to="/admin">Admin</NavLink>
@@ -87,7 +87,7 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
               }}
             >🛒 Cart</NavLink>
             <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl" to="/about" onClick={() => { setMenuOpen(false); scrollTo(0, 0); }}>About</NavLink>
-            <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl" to="/contact" onClick={() => { setMenuOpen(false); scrollTo(0, 0); }}>Contact</NavLink>
+            {/* <NavLink className="hover:bg-[#333333] pl-5 py-2 mr-5 rounded-xl" to="/contact" onClick={() => { setMenuOpen(false); scrollTo(0, 0); }}>Contact</NavLink> */}
 
             {isAuthenticated && (
               <NavLink
