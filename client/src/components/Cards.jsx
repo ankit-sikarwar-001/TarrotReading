@@ -16,10 +16,10 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
     
     const productDetail = (e, id) => {
         e.preventDefault();
-        if(e.target.textContent === "Add to Cart") {
-            navigate("/cart"); // Navigate to cart page
-            scrollTo(0,0)
-            return;
+        if (e.target.textContent === "Buy Now") {
+          navigate("/cart"); // Navigate to cart page
+          scrollTo(0, 0);
+          return;
         }
         scrollTo(0,0)
         navigate(`/product/${id}`); // Navigate to product detail page
@@ -118,7 +118,7 @@ const Cards = ({ condi = false, sortOption = 'Featured' }) => {
                 </span> 
                 <button
                   onClick={(e) => handleToCart(e, product._id)}
-                  className="bg-purple-700 text-white px-3 py-1.5 text-sm rounded-md hover:bg-purple-800"
+                  className="bg-purple-700 text-white px-3 py-1.5 text-sm rounded-md hover:bg-purple-800 cursor-pointer"
                 >
                   Buy Now
                 </button>

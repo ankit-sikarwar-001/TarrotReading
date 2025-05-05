@@ -53,7 +53,7 @@ const Cart = () => {
     <div className="p-4 md:p-8">
       <button
         onClick={() => navigate("/")}
-        className="text-white hover:underline mb-4 inline-block"
+        className="text-white hover:underline mb-4n cursor-pointer inline-block"
       >
         ← Back to Home
       </button>
