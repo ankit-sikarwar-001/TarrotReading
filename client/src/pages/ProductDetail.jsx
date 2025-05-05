@@ -1,23 +1,62 @@
-import React, { useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { AppContext } from '../appContext/AppContext';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "../appContext/AppContext";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
+
+  const [reviews, setReviews] = useState({
+    name: "",
+    comment: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const { allitems, totalCartItems } = useContext(AppContext);
   const { id } = useParams();
   const product = allitems.find((item) => item._id === id);
 
+  const [reviewsList, setReviewsList] = useState([]);
+
+ 
+const fetchReviews = async () => {
+  try {
+    const { data } = await axios.get(
+      `${backendUrl}/api/reviews/${product._id}`
+    );
+    setReviewsList(data.reviews);
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+  }
+};
+
+useEffect(() => {
+  if (product) {
+    fetchReviews();
+  }
+}, [product]);
+
   if (!product) {
-    return <div className="text-white text-center py-20 text-2xl">Product not found</div>;
+    return (
+      <div className="text-white text-center py-20 text-2xl">
+        Product not found
+      </div>
+    );
   }
 
+
+  
 
   const handleToBuy = (e, id) => {
     e.preventDefault();
     const item = allitems.find((item) => item._id === id);
     if (item) {
-      const existingItem = totalCartItems.find((cartItem) => cartItem._id === id);
+      const existingItem = totalCartItems.find(
+        (cartItem) => cartItem._id === id
+      );
       if (existingItem) {
         existingItem.quantity += 1; // Increment quantity if already in cart
       } else {
@@ -25,11 +64,54 @@ const ProductDetail = () => {
       }
       localStorage.setItem("tarotCartItems", JSON.stringify(totalCartItems));
       navigate("/cart"); // Navigate to cart page
-      scrollTo(0, 0)
+      scrollTo(0, 0);
     } else {
       alert("Product not found");
     }
-  }
+  };
+
+  const handleReviewChange = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    if (reviews.name.trim() === "" || reviews.comment.trim() === "") {
+      toast.error("Please fill in all fields.");
+      setLoading(false); // Reset loading state
+      return;
+    }
+    const reviewData = {
+      name: reviews.name.trim(),
+      comment: reviews.comment.trim(),
+    };
+
+    // Make a POST request to your backend API to save the review
+
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/reviews/${product._id}`,
+        reviewData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        setReviews({ name: "", comment: "" }); // Reset the form fields
+      } else {
+        toast.error(data.message);
+        setReviews({ name: "", comment: "" }); // Reset the form fields
+      }
+    } catch (error) {
+      toast.error("Error submitting review. Please try again later.");
+      toast.error(data.message);
+      console.error("Error submitting review:", error);
+    } finally {
+      setReviews({ name: "", comment: "" }); // Reset the form fields
+      setLoading(false); // Reset loading state
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-10 text-white ">
@@ -105,6 +187,79 @@ const ProductDetail = () => {
           <p className="text-gray-300 leading-relaxed text-lg">
             {product.description}
           </p>
+        </div>
+      </div>
+      {/* review from users*/}
+      <div>
+        {/* show reviews */}
+        {reviewsList.length > 0 ? (
+          <div className="mt-10">
+            <h2 className="text-2xl font-bold mb-4">User Reviews</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {reviewsList.map((review, index) => (
+                <div key={index} className="bg-gray-800 p-4 rounded-lg">
+                  <p className="text-yellow-400 font-semibold">{review.name}</p>
+                  <p className="text-white mt-2">{review.comment}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p className="text-gray-400 mt-10">No reviews yet.</p>
+        )}
+
+        <div className="mt-10">
+          <h2 className="text-2xl font-bold mb-5 ml-1 sm:ml-0">Add a Review</h2>
+          <form
+            className="bg-gray-800 p-4 sm:p-6 rounded-lg w-full max-w-2xl"
+            onSubmit={(e) => handleReviewChange(e)}
+          >
+            <div className="mb-4">
+              <label
+                className="block text-gray-300 mb-2 text-sm sm:text-base"
+                htmlFor="user"
+              >
+                Your Name
+              </label>
+              <input
+                type="text"
+                id="user"
+                className="w-full p-2 sm:p-3 bg-gray-700 text-white rounded-lg text-sm sm:text-base"
+                placeholder="Enter your name"
+                onChange={(e) =>
+                  setReviews({ ...reviews, name: e.target.value })
+                }
+                value={reviews.name}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-300 mb-2 text-sm sm:text-base"
+                htmlFor="comment"
+              >
+                Your Review
+              </label>
+              <textarea
+                id="comment"
+                rows="4"
+                className="w-full p-2 sm:p-3 bg-gray-700 text-white rounded-lg text-sm sm:text-base"
+                placeholder="Write your review here..."
+                onChange={(e) =>
+                  setReviews({ ...reviews, comment: e.target.value })
+                }
+                value={reviews.comment}
+              ></textarea>
+            </div>
+            <button
+              disabled={loading}
+              type="submit"
+              className={`bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition duration-300 text-sm sm:text-base ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? "Submitting..." : "Submit Review"}
+            </button>
+          </form>
         </div>
       </div>
     </div>
