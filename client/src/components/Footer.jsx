@@ -49,8 +49,8 @@ const Footer = () => {
         {/* Contact & Legal */}
         <div className="space-y-2 text-sm">
           <h2 className="text-lg font-semibold mb-1">Contact</h2>
+          <p><strong>Name:</strong> Sukhdev</p>
           <p><strong>Email:</strong> ssingh66907@gmail.com</p>
-          <p><strong>Phone:</strong> +91-9467270938</p>
           <p><strong>Business Name:</strong> Mystic Tarot (Owned by Sukhdev)</p>
           <p><strong>Registered Address:</strong> VPO Khardwal Teh Narwana <br />126116, District Jind , Haryana</p>
         </div>
